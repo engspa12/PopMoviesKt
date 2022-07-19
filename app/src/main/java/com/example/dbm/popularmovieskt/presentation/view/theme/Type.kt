@@ -1,4 +1,4 @@
-package com.example.dbm.popularmovieskt.ui.theme
+package com.example.dbm.popularmovieskt.presentation.view.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle
