@@ -12,6 +12,5 @@ data class MovieCache(
     val movieReleaseDate: String,
     val movieRating: Double,
     val moviePosterPath: String,
-    val movieSynopsis: String,
-    val movieImage: String
+    val movieSynopsis: String
 )

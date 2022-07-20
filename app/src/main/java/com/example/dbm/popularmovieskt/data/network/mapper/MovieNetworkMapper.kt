@@ -12,8 +12,7 @@ class MovieNetworkMapper: NetworkMapper<MovieNetwork, MovieDomain> {
             movieReleaseDate = dto.releaseDate ?: "No release date",
             movieRating = dto.rating ?: 0.0,
             moviePosterPath = dto.posterPath ?: "",
-            movieSynopsis = dto.synopsis ?: "No synopsis",
-            movieImage = ""
+            movieSynopsis = dto.synopsis ?: "No synopsis"
         )
     }
 }

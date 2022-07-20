@@ -12,8 +12,7 @@ class MovieCacheMapper: CacheMapper<MovieCache, MovieDomain> {
             movieReleaseDate = dto.movieReleaseDate,
             movieRating = dto.movieRating,
             moviePosterPath = dto.moviePosterPath,
-            movieSynopsis = dto.movieSynopsis,
-            movieImage = dto.movieImage
+            movieSynopsis = dto.movieSynopsis
         )
     }
 
@@ -24,8 +23,7 @@ class MovieCacheMapper: CacheMapper<MovieCache, MovieDomain> {
             movieReleaseDate = domainModel.movieReleaseDate,
             movieRating = domainModel.movieRating,
             moviePosterPath = domainModel.moviePosterPath,
-            movieSynopsis = domainModel.movieSynopsis,
-            movieImage = domainModel.movieImage
+            movieSynopsis = domainModel.movieSynopsis
         )
     }
 }
