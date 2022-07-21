@@ -8,6 +8,9 @@ import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IRemoveFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.reviews.IGetReviewsUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.trailers.IGetTrailersUseCase
+import com.example.dbm.popularmovieskt.domain.util.toDetailsView
+import com.example.dbm.popularmovieskt.domain.util.toGridView
+import com.example.dbm.popularmovieskt.domain.util.toView
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
 import com.example.dbm.popularmovieskt.presentation.model.ReviewView
@@ -20,29 +23,57 @@ class MoviesService @Inject constructor(
     private val removeFavoriteMovieUseCase: IRemoveFavoriteMovieUseCase,
     private val getTrailersUseCase: IGetTrailersUseCase,
     private val getReviewsUseCase: IGetReviewsUseCase
-) {
+): IMoviesService {
 
-    private var listMovies: List<MovieDomain> = emptyList()
-    private var listTrailers: List<TrailerDomain> = emptyList()
-    private var listReviews: List<ReviewView> = emptyList()
+    private var innerListMovies: List<MovieDomain> = emptyList()
 
-    /*override suspend fun getListMovies(sortValue: String): List<MovieGridView> {
+    override suspend fun getListMovies(sortValue: String): List<MovieGridView> {
         val moviesList = getMoviesUseCase(sortValue)
+        innerListMovies = moviesList
+
+        return moviesList.map {
+            it.toGridView()
+        }
     }
 
-    override suspend fun getMovieDetails(): MovieDetailsView {
-        TODO("Not yet implemented")
+    override suspend fun getMovieDetails(movieId: Int): MovieDetailsView {
+        val movie = findMovieById(movieId)
+        val trailers = getTrailersUseCase(movieId).map {
+            it.toView()
+        }
+        val reviews = getReviewsUseCase(movieId).map {
+            it.toView()
+        }
+
+        return movie.toDetailsView(
+            trailers = trailers,
+            reviews = reviews
+        )
     }
 
     override suspend fun getFavoriteMovies(): List<MovieGridView> {
-        TODO("Not yet implemented")
+        val favoriteMovies = getFavoriteMoviesUseCase()
+
+        return favoriteMovies.map {
+            it.toGridView()
+        }
     }
 
     override suspend fun addFavoriteMovie(movieId: Int) {
-        TODO("Not yet implemented")
+        val movie = findMovieById(movieId)
+        addFavoriteMovieUseCase(movie)
     }
 
     override suspend fun removeFavoriteMovie(movieId: Int) {
-        TODO("Not yet implemented")
-    }*/
+        removeFavoriteMovieUseCase(movieId)
+    }
+
+    private fun findMovieById(movieId: Int): MovieDomain {
+        val matches = innerListMovies.filter { it.movieId == movieId }
+        if(matches.isNotEmpty()){
+            return matches[0]
+        } else {
+            throw RuntimeException("No movieId was found")
+        }
+    }
 }

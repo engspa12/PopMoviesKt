@@ -5,7 +5,7 @@ import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
 
 interface IMoviesService {
     suspend fun getListMovies(sortValue: String): List<MovieGridView>
-    suspend fun getMovieDetails(): MovieDetailsView
+    suspend fun getMovieDetails(movieId: Int): MovieDetailsView
     suspend fun getFavoriteMovies(): List<MovieGridView>
     suspend fun addFavoriteMovie(movieId: Int)
     suspend fun removeFavoriteMovie(movieId: Int)

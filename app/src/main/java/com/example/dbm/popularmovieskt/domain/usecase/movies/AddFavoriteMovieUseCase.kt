@@ -5,15 +5,15 @@ import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import javax.inject.Inject
 
 interface IAddFavoriteMovieUseCase{
-    suspend operator fun invoke(movieItem: MovieDomain)
+    suspend operator fun invoke(movie: MovieDomain)
 }
 
 class AddFavoriteMovieUseCase @Inject constructor(
     private val moviesRepository: IMoviesRepository
 ): IAddFavoriteMovieUseCase {
 
-    override suspend fun invoke(movieItem: MovieDomain) {
-        moviesRepository.addFavorite(movieItem)
+    override suspend fun invoke(movie: MovieDomain) {
+        moviesRepository.addFavorite(movie)
     }
 
 }

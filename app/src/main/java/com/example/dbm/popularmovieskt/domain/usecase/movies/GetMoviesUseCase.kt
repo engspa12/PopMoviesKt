@@ -2,38 +2,32 @@ package com.example.dbm.popularmovieskt.domain.usecase.movies
 
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
-import com.example.dbm.popularmovieskt.domain.util.toDetailsView
-import com.example.dbm.popularmovieskt.domain.util.toView
 import com.example.dbm.popularmovieskt.global.Constants
-import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import javax.inject.Inject
 
 interface IGetMoviesUseCase {
-    suspend operator fun invoke(sortValue: String): List<MovieDetailsView>
+    suspend operator fun invoke(sortValue: String): List<MovieDomain>
 }
 
 class GetMoviesUseCase @Inject constructor(
     private val moviesRepository: IMoviesRepository
 ) : IGetMoviesUseCase {
 
-    private var listMovies = mutableListOf<MovieDomain>()
-
-    override suspend fun invoke(sortValue: String): List<MovieDetailsView> {
-        val returnedList = mutableListOf<MovieDetailsView>()
+    override suspend fun invoke(sortValue: String): List<MovieDomain> {
+        val returnedList = mutableListOf<MovieDomain>()
         return getMovies(returnedList, sortValue, Constants.PAGE_INITIAL_VALUE)
     }
 
     private suspend fun getMovies(
-        returnedList: MutableList<MovieDetailsView>,
+        returnedList: MutableList<MovieDomain>,
         sortValue: String,
         page: Int
-    ): List<MovieDetailsView>{
+    ): List<MovieDomain>{
 
         val fetchedListMovies = moviesRepository.getListMovies(sortValue, page)
 
         fetchedListMovies.map {
-            listMovies.add(it)
-            returnedList.add(it.toDetailsView())
+            returnedList.add(it)
         }
 
         return if(page == 5){

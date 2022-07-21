@@ -3,6 +3,7 @@ package com.example.dbm.popularmovieskt.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dbm.popularmovieskt.di.DispatchersModule
+import com.example.dbm.popularmovieskt.domain.service.IMoviesService
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.state.MainState
@@ -15,7 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val getListMoviesUseCase: IGetMoviesUseCase,
+    private val moviesService: IMoviesService,
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
@@ -23,12 +24,12 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<MainState> = _uiState
 
     init {
-        getListMovies(Constants.SORT_BY_POPULAR)
+        getMovies(Constants.SORT_BY_POPULAR)
     }
 
-    fun getListMovies(sortValue: String){
+    fun getMovies(sortValue: String){
         viewModelScope.launch(mainDispatcher) {
-            val listMovies = getListMoviesUseCase(sortValue)
+            val listMovies = moviesService.getListMovies(sortValue)
             println("The quantity of movies received is: ${listMovies.size}")
         }
     }

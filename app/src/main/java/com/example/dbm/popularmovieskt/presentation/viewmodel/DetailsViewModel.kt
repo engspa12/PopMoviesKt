@@ -3,6 +3,7 @@ package com.example.dbm.popularmovieskt.presentation.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dbm.popularmovieskt.di.DispatchersModule
+import com.example.dbm.popularmovieskt.domain.service.IMoviesService
 import com.example.dbm.popularmovieskt.domain.usecase.reviews.IGetReviewsUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.trailers.IGetTrailersUseCase
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
@@ -15,8 +16,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class DetailsViewModel @Inject constructor(
-    private val getTrailersUseCase: IGetTrailersUseCase,
-    private val getReviewsUseCase: IGetReviewsUseCase,
+    private val moviesService: IMoviesService,
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
@@ -25,8 +25,7 @@ class DetailsViewModel @Inject constructor(
 
     fun getMovieDetails(movieId: Int){
         viewModelScope.launch(mainDispatcher) {
-            val movieTrailers = getTrailersUseCase(movieId)
-            val movieReviews = getReviewsUseCase(movieId)
+            val movieDetails = moviesService.getMovieDetails(movieId)
 
         }
     }
