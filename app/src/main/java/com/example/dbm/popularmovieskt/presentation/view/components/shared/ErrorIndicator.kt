@@ -1,4 +1,4 @@
-package com.example.dbm.popularmovieskt.presentation.view.components
+package com.example.dbm.popularmovieskt.presentation.view.components.shared
 
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable

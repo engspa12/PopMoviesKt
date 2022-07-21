@@ -1,4 +1,4 @@
-package com.example.dbm.popularmovieskt.presentation.view.components
+package com.example.dbm.popularmovieskt.presentation.view.components.shared
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding

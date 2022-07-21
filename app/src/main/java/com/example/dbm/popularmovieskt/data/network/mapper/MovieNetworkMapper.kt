@@ -3,6 +3,7 @@ package com.example.dbm.popularmovieskt.data.network.mapper
 import com.example.dbm.popularmovieskt.data.util.NetworkMapper
 import com.example.dbm.popularmovieskt.data.network.model.MovieNetwork
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
+import com.example.dbm.popularmovieskt.global.Constants
 
 class MovieNetworkMapper: NetworkMapper<MovieNetwork, MovieDomain> {
     override fun mapToDomainModel(dto: MovieNetwork): MovieDomain {
@@ -11,7 +12,7 @@ class MovieNetworkMapper: NetworkMapper<MovieNetwork, MovieDomain> {
             movieName = dto.title ?: "No title",
             movieReleaseDate = dto.releaseDate ?: "No release date",
             movieRating = dto.rating ?: 0.0,
-            moviePosterPath = dto.posterPath ?: "",
+            moviePosterPath = Constants.BASE_POSTER_URL + (dto.posterPath ?: "/"),
             movieSynopsis = dto.synopsis ?: "No synopsis"
         )
     }

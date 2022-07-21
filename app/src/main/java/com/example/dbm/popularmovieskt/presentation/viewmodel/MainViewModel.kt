@@ -23,14 +23,10 @@ class MainViewModel @Inject constructor(
     private val _uiState = MutableStateFlow<MainState>(MainState.Loading("Loading Movies..."))
     val uiState: StateFlow<MainState> = _uiState
 
-    init {
-        getMovies(Constants.SORT_BY_POPULAR)
-    }
-
     fun getMovies(sortValue: String){
         viewModelScope.launch(mainDispatcher) {
             val listMovies = moviesService.getListMovies(sortValue)
-            println("The quantity of movies received is: ${listMovies.size}")
+            _uiState.value = MainState.Success(value = listMovies)
         }
     }
 
