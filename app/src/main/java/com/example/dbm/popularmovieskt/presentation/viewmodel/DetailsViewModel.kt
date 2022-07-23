@@ -4,8 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
-import com.example.dbm.popularmovieskt.domain.usecase.reviews.IGetReviewsUseCase
-import com.example.dbm.popularmovieskt.domain.usecase.trailers.IGetTrailersUseCase
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -26,7 +24,19 @@ class DetailsViewModel @Inject constructor(
     fun getMovieDetails(movieId: Int){
         viewModelScope.launch(mainDispatcher) {
             val movieDetails = moviesService.getMovieDetails(movieId)
+            _uiState.value = DetailsState.Success(value = movieDetails)
+        }
+    }
 
+    fun addFavoriteMovie(movieId: Int){
+        viewModelScope.launch(mainDispatcher) {
+            moviesService.addFavoriteMovie(movieId)
+        }
+    }
+
+    fun removeFavoriteMovie(movieId: Int) {
+        viewModelScope.launch(mainDispatcher) {
+            moviesService.removeFavoriteMovie(movieId)
         }
     }
 }

@@ -8,5 +8,6 @@ data class MovieDetailsView(
     val moviePosterPath: String,
     val movieSynopsis: String,
     val trailers: List<TrailerView>?,
-    val reviews: List<ReviewView>?
+    val reviews: List<ReviewView>?,
+    val isFavorite: Boolean
 )

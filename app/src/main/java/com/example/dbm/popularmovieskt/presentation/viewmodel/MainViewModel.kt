@@ -24,10 +24,17 @@ class MainViewModel @Inject constructor(
     val uiState: StateFlow<MainState> = _uiState
 
     fun getMovies(sortValue: String){
+
+        showProgressBar()
+
         viewModelScope.launch(mainDispatcher) {
             val listMovies = moviesService.getListMovies(sortValue)
             _uiState.value = MainState.Success(value = listMovies)
         }
+    }
+
+    private fun showProgressBar() {
+        _uiState.value = MainState.Loading("Loading Movies...")
     }
 
 }

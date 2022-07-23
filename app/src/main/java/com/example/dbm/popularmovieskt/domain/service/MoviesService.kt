@@ -1,7 +1,6 @@
 package com.example.dbm.popularmovieskt.domain.service
 
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
-import com.example.dbm.popularmovieskt.domain.model.TrailerDomain
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IAddFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetFavoriteMoviesUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
@@ -11,9 +10,9 @@ import com.example.dbm.popularmovieskt.domain.usecase.trailers.IGetTrailersUseCa
 import com.example.dbm.popularmovieskt.domain.util.toDetailsView
 import com.example.dbm.popularmovieskt.domain.util.toGridView
 import com.example.dbm.popularmovieskt.domain.util.toView
+import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
-import com.example.dbm.popularmovieskt.presentation.model.ReviewView
 import javax.inject.Inject
 
 class MoviesService @Inject constructor(
@@ -28,26 +27,40 @@ class MoviesService @Inject constructor(
     private var innerListMovies: List<MovieDomain> = emptyList()
 
     override suspend fun getListMovies(sortValue: String): List<MovieGridView> {
-        val moviesList = getMoviesUseCase(sortValue)
-        innerListMovies = moviesList
 
-        return moviesList.map {
-            it.toGridView()
+        return if(sortValue != Constants.SORT_BY_FAVORITE_MOVIES){
+            val moviesList = getMoviesUseCase(sortValue)
+            innerListMovies = moviesList
+
+            moviesList.map {
+                it.toGridView()
+            }
+        } else {
+            getFavoriteMovies()
         }
     }
 
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsView {
-        val movie = findMovieById(movieId)
+        //val movie = findMovieById(movieId)
+        val temp = getListMovies(Constants.SORT_BY_POPULAR)
+        val movie = innerListMovies.filter { it.movieId == movieId }
+
         val trailers = getTrailersUseCase(movieId).map {
             it.toView()
         }
+
         val reviews = getReviewsUseCase(movieId).map {
             it.toView()
         }
 
-        return movie.toDetailsView(
+        val favoriteMovies = getFavoriteMoviesUseCase()
+
+        val isFavorite = favoriteMovies.filter { it.movieId == movieId }
+
+        return movie[0].toDetailsView(
             trailers = trailers,
-            reviews = reviews
+            reviews = reviews,
+            isFavorite = (isFavorite.size == 1)
         )
     }
 

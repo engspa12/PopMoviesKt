@@ -17,7 +17,8 @@ fun MovieDomain.toGridView(): MovieGridView {
 
 fun MovieDomain.toDetailsView(
     trailers: List<TrailerView>? = null,
-    reviews: List<ReviewView>? = null
+    reviews: List<ReviewView>? = null,
+    isFavorite: Boolean
 ): MovieDetailsView {
     return MovieDetailsView(
         this.movieId,
@@ -27,7 +28,8 @@ fun MovieDomain.toDetailsView(
         this.moviePosterPath,
         this.movieSynopsis,
         trailers,
-        reviews
+        reviews,
+        isFavorite
     )
 }
 

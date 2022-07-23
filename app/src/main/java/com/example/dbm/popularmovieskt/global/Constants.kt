@@ -8,6 +8,8 @@ object Constants {
     val API_KEY_PARAM = "api_key"
     val LANGUAGE_PARAM = "language"
     val SORT_BY_POPULAR = "popular"
+    val SORT_BY_HIGHEST_RATED = "top_rated"
+    val SORT_BY_FAVORITE_MOVIES = "favorite_movies"
     val PAGE_PARAM = "page"
     val BASE_URL = "https://api.themoviedb.org/3/movie/"
     val BASE_POSTER_URL = "https://image.tmdb.org/t/p/w500"
