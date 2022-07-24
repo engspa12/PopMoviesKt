@@ -1,8 +1,8 @@
 package com.example.dbm.popularmovieskt.data.network.mapper
 
-import com.example.dbm.popularmovieskt.data.util.NetworkMapper
 import com.example.dbm.popularmovieskt.data.network.model.MovieNetwork
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
+import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 import com.example.dbm.popularmovieskt.global.Constants
 
 class MovieNetworkMapper: NetworkMapper<MovieNetwork, MovieDomain> {

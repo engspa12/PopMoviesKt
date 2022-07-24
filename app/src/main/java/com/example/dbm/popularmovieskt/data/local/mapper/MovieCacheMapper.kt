@@ -1,8 +1,8 @@
 package com.example.dbm.popularmovieskt.data.local.mapper
 
-import com.example.dbm.popularmovieskt.data.util.CacheMapper
 import com.example.dbm.popularmovieskt.data.local.model.MovieCache
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
+import com.example.dbm.popularmovieskt.domain.util.CacheMapper
 
 class MovieCacheMapper: CacheMapper<MovieCache, MovieDomain> {
     override fun mapToDomainModel(dto: MovieCache): MovieDomain {

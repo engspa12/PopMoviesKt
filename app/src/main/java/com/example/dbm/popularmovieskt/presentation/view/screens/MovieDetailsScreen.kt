@@ -1,12 +1,12 @@
 package com.example.dbm.popularmovieskt.presentation.view.screens
 
 import android.content.Context
+import android.content.Intent
+import android.net.Uri
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.rememberLazyListState
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -14,6 +14,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
 import com.example.dbm.popularmovieskt.presentation.view.components.detail.MovieDetails
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ErrorIndicator
@@ -46,7 +47,11 @@ fun MovieDetailsScreen(
                         println("The movieId of the item clicked is: $movieId")
                     },
                     onTrailerItemClicked = { trailerKey ->
-                        println("The trailerKey of the item clicked is: $trailerKey")
+                        println("The url of the item clicked is: ${Constants.YOUTUBE_URL}${trailerKey}")
+                        val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${Constants.YOUTUBE_URL}${trailerKey}"))
+                        if (intent.resolveActivity(context.packageManager) != null) {
+                            context.startActivity(intent)
+                        }
                     }
                 )
             }

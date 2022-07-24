@@ -1,7 +1,5 @@
 package com.example.dbm.popularmovieskt.di
 
-import com.example.dbm.popularmovieskt.data.util.CacheMapper
-import com.example.dbm.popularmovieskt.data.util.NetworkMapper
 import com.example.dbm.popularmovieskt.data.local.mapper.MovieCacheMapper
 import com.example.dbm.popularmovieskt.data.local.model.MovieCache
 import com.example.dbm.popularmovieskt.data.network.mapper.MovieNetworkMapper
@@ -13,6 +11,8 @@ import com.example.dbm.popularmovieskt.data.network.model.TrailerNetwork
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.model.ReviewDomain
 import com.example.dbm.popularmovieskt.domain.model.TrailerDomain
+import com.example.dbm.popularmovieskt.domain.util.CacheMapper
+import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

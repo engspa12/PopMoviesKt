@@ -31,13 +31,11 @@ fun MoviesGridScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(key1 = sortValue) {
-        //println("Recomposition MoviesGridScreen sort value in LaunchedEffect is: $sortValue")
         viewModel.getMovies(sortValue)
     }
 
     when(uiState) {
         is MainState.Success -> {
-            //println("Recomposition MoviesGridScreen sort value in Success is: $sortValue")
             MoviesGrid(
                 gridLazyState = gridLazyState,
                 list = uiState.value,

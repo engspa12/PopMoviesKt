@@ -9,14 +9,14 @@ import com.example.dbm.popularmovieskt.data.network.model.TrailerNetwork
 import com.example.dbm.popularmovieskt.data.repository.MoviesRepository
 import com.example.dbm.popularmovieskt.data.repository.ReviewsRepository
 import com.example.dbm.popularmovieskt.data.repository.TrailersRepository
-import com.example.dbm.popularmovieskt.data.util.CacheMapper
-import com.example.dbm.popularmovieskt.data.util.NetworkMapper
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.model.ReviewDomain
 import com.example.dbm.popularmovieskt.domain.model.TrailerDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.domain.repository.IReviewsRepository
 import com.example.dbm.popularmovieskt.domain.repository.ITrailersRepository
+import com.example.dbm.popularmovieskt.domain.util.CacheMapper
+import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

@@ -1,5 +1,6 @@
 package com.example.dbm.popularmovieskt.presentation.view
 
+import android.content.Context
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -18,15 +19,12 @@ import com.example.dbm.popularmovieskt.presentation.viewmodel.MainViewModel
 
 @Composable
 fun Navigation(
+    context: Context,
     gridLazyState: LazyGridState,
     navController: NavHostController,
     sortValue: String,
-    //selectedSortValue: String,
-    //selectedSortValue: MutableState<String>,
     modifier: Modifier = Modifier
 ) {
-
-    //val sortValue by selectedSortValue
 
     NavHost(navController = navController, startDestination = "movies"){
         navigation(startDestination = Screen.MainScreen.route + "/sortValue", route = "movies") {
@@ -40,7 +38,6 @@ fun Navigation(
                     }
                 )
                 ) {
-                //println("Recomposition Navigation sort value in route is: $sortValue")
                 val mainViewModel = hiltViewModel<MainViewModel>()
                 MoviesGridScreen(
                     gridLazyState = gridLazyState,
@@ -62,7 +59,7 @@ fun Navigation(
             ) { backStackEntry ->
                 val movieDetailsViewModel = hiltViewModel<DetailsViewModel>()
                 MovieDetailsScreen(
-                    context = LocalContext.current,
+                    context = context,
                     movieId = backStackEntry.arguments?.getInt("movieId") ?: -1,
                     viewModel = movieDetailsViewModel,
                     modifier = modifier
@@ -70,16 +67,4 @@ fun Navigation(
             }
         }
     }
-
-    /*Text(
-        text = sortValue,
-        textAlign = TextAlign.Center,
-        fontSize = 32.sp,
-        modifier = modifier
-            .fillMaxSize()
-            .wrapContentHeight(align = Alignment.CenterVertically)
-            .clickable {
-                //changeSortValue("1234")
-            }
-    )*/
 }

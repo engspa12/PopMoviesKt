@@ -8,6 +8,15 @@ import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
 import com.example.dbm.popularmovieskt.presentation.model.ReviewView
 import com.example.dbm.popularmovieskt.presentation.model.TrailerView
 
+interface NetworkMapper<Dto, DomainModel> {
+    fun mapToDomainModel(dto: Dto): DomainModel
+}
+
+interface CacheMapper<Dto, DomainModel> {
+    fun mapToDomainModel(dto: Dto): DomainModel
+    fun mapFromDomainModel(domainModel: DomainModel): Dto
+}
+
 fun MovieDomain.toGridView(): MovieGridView {
     return MovieGridView(
         this.movieId,

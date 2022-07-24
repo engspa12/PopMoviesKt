@@ -1,8 +1,8 @@
 package com.example.dbm.popularmovieskt.data.network.mapper
 
 import com.example.dbm.popularmovieskt.data.network.model.TrailerNetwork
-import com.example.dbm.popularmovieskt.data.util.NetworkMapper
 import com.example.dbm.popularmovieskt.domain.model.TrailerDomain
+import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 
 class TrailerNetworkMapper: NetworkMapper<TrailerNetwork, TrailerDomain> {
     override fun mapToDomainModel(dto: TrailerNetwork): TrailerDomain {

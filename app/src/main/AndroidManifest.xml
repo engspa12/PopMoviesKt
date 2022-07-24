@@ -22,10 +22,17 @@
             android:theme="@style/Theme.PopMoviesKt">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
     </application>
+
+    <queries>
+        <intent>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <data android:scheme="https" android:host="youtube.com"/>
+        </intent>
+    </queries>
 
 </manifest>
