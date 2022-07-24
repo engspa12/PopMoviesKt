@@ -9,7 +9,7 @@ import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.global.Constants
 
 @Composable
-fun AppBar(
+fun TopBar(
     showMenu: Boolean,
     onDismissMenu: () -> Unit,
     onMenuIconClick: () -> Unit,

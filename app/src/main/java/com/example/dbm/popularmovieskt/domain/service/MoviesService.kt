@@ -41,9 +41,7 @@ class MoviesService @Inject constructor(
     }
 
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsView {
-        //val movie = findMovieById(movieId)
-        val temp = getListMovies(Constants.SORT_BY_POPULAR)
-        val movie = innerListMovies.filter { it.movieId == movieId }
+        val movie = findMovieById(movieId)
 
         val trailers = getTrailersUseCase(movieId).map {
             it.toView()
@@ -57,7 +55,7 @@ class MoviesService @Inject constructor(
 
         val isFavorite = favoriteMovies.filter { it.movieId == movieId }
 
-        return movie[0].toDetailsView(
+        return movie.toDetailsView(
             trailers = trailers,
             reviews = reviews,
             isFavorite = (isFavorite.size == 1)

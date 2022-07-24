@@ -12,14 +12,14 @@ import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
 
 @Composable
 fun MoviesGrid(
-    lazyState: LazyGridState,
+    gridLazyState: LazyGridState,
     list: List<MovieGridView>?,
     onItemClicked: (Int) -> Unit,
     modifier: Modifier = Modifier
 ){
     LazyVerticalGrid(
-        columns = GridCells.Fixed(2),
-        state = lazyState,
+        columns = GridCells.Adaptive(150.dp),
+        state = gridLazyState,
         modifier = modifier
     ) {
         itemsIndexed(list ?: listOf()) { _ , gridItemView ->

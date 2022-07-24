@@ -97,7 +97,7 @@ fun MovieDetails(
                         colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF009688))
                     ) {
                         Text(
-                            text = if(detailsMovie.isFavorite) "Remove from favorites" else "Add to favorites",
+                            text = if (detailsMovie.isFavorite) "Remove from favorites" else "Add to favorites",
                             fontSize = 14.sp
                         )
                     }
@@ -128,17 +128,31 @@ fun MovieDetails(
                 fontSize = 32.sp
             )
         }
-        itemsIndexed(detailsMovie.trailers ?: listOf()) { index, trailer ->
-            Trailer(
-                trailerView = trailer,
-                onTrailerClicked = {
-                    onTrailerItemClicked(it)
-                },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .wrapContentHeight(align = Alignment.CenterVertically)
-                    .padding(vertical = 8.dp, horizontal = 28.dp)
-            )
+        if (detailsMovie.trailers != null && detailsMovie.trailers.isNotEmpty()) {
+            itemsIndexed(detailsMovie.trailers) { index, trailer ->
+                Trailer(
+                    trailerView = trailer,
+                    onTrailerClicked = {
+                        onTrailerItemClicked(it)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                        .padding(vertical = 8.dp, horizontal = 28.dp)
+                )
+            }
+        } else {
+            item {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                        .padding(vertical = 8.dp, horizontal = 28.dp),
+                    fontWeight = FontWeight.W600,
+                    text = "There are no trailers available",
+                    fontSize = 16.sp
+                )
+            }
         }
         item {
             Text(
@@ -150,12 +164,26 @@ fun MovieDetails(
                 fontSize = 32.sp
             )
         }
-        itemsIndexed(detailsMovie.reviews ?: listOf()) { index, review ->
-            Review(
-                reviewView = review,
-                modifier = Modifier
-                    .padding(vertical = 8.dp, horizontal = 28.dp)
-            )
+        if (detailsMovie.reviews != null && detailsMovie.reviews.isNotEmpty()) {
+            itemsIndexed(detailsMovie.reviews) { index, review ->
+                Review(
+                    reviewView = review,
+                    modifier = Modifier
+                        .padding(vertical = 8.dp, horizontal = 28.dp)
+                )
+            }
+        } else {
+            item {
+                Text(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .wrapContentHeight(align = Alignment.CenterVertically)
+                        .padding(vertical = 8.dp, horizontal = 28.dp),
+                    fontWeight = FontWeight.W600,
+                    text = "There are no reviews available",
+                    fontSize = 16.sp
+                )
+            }
         }
     }
 }

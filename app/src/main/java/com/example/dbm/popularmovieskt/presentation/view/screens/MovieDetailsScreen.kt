@@ -23,8 +23,8 @@ import com.example.dbm.popularmovieskt.presentation.viewmodel.DetailsViewModel
 @Composable
 fun MovieDetailsScreen(
     context: Context,
-    viewModel: DetailsViewModel,
     movieId: Int,
+    viewModel: DetailsViewModel,
     modifier: Modifier = Modifier
 ){
 
@@ -43,10 +43,12 @@ fun MovieDetailsScreen(
                     lazyListState,
                     modifier = modifier,
                     onFavoriteButtonClicked = { movieId ->
-                        println("The movieId of the item clicked is: $movieId") },
-                    { trailerKey ->
-
-                })
+                        println("The movieId of the item clicked is: $movieId")
+                    },
+                    onTrailerItemClicked = { trailerKey ->
+                        println("The trailerKey of the item clicked is: $trailerKey")
+                    }
+                )
             }
         }
         is DetailsState.Error -> {
