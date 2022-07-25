@@ -1,4 +1,4 @@
-package com.example.dbm.popularmovieskt.presentation.view
+package com.example.dbm.popularmovieskt.presentation.navigation
 
 sealed class Screen(val route: String) {
     object MainScreen: Screen("main_screen")

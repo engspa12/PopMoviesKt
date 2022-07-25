@@ -4,9 +4,8 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
-import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
-import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.state.MainState
+import com.example.dbm.popularmovieskt.util.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -28,8 +27,14 @@ class MainViewModel @Inject constructor(
         showProgressBar()
 
         viewModelScope.launch(mainDispatcher) {
-            val listMovies = moviesService.getListMovies(sortValue)
-            _uiState.value = MainState.Success(value = listMovies)
+            when(val result = moviesService.getListMovies(sortValue)) {
+                is ResultWrapper.Success -> {
+                    _uiState.value = MainState.Success(value = result.value)
+                }
+                is ResultWrapper.Failure -> {
+                    _uiState.value = MainState.Error(errorMessage = result.errorMessage ?: "")
+                }
+            }
         }
     }
 

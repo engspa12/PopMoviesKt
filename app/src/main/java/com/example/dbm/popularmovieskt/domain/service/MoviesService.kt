@@ -13,6 +13,7 @@ import com.example.dbm.popularmovieskt.domain.util.toView
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
+import com.example.dbm.popularmovieskt.util.ResultWrapper
 import javax.inject.Inject
 
 class MoviesService @Inject constructor(
@@ -26,14 +27,21 @@ class MoviesService @Inject constructor(
 
     private var innerListMovies: List<MovieDomain> = emptyList()
 
-    override suspend fun getListMovies(sortValue: String): List<MovieGridView> {
+    override suspend fun getListMovies(sortValue: String): ResultWrapper<List<MovieGridView>> {
 
         return if(sortValue != Constants.SORT_BY_FAVORITE_MOVIES){
-            val moviesList = getMoviesUseCase(sortValue)
-            innerListMovies = moviesList
 
-            moviesList.map {
-                it.toGridView()
+            when(val result = getMoviesUseCase(sortValue)) {
+                is ResultWrapper.Success -> {
+                    innerListMovies = result.value
+                    val listMovies = result.value.map {
+                        it.toGridView()
+                    }
+                    ResultWrapper.Success(listMovies)
+                }
+                is ResultWrapper.Failure -> {
+                    ResultWrapper.Failure(result.errorMessage)
+                }
             }
         } else {
             getFavoriteMovies()
@@ -62,11 +70,17 @@ class MoviesService @Inject constructor(
         )
     }
 
-    override suspend fun getFavoriteMovies(): List<MovieGridView> {
+    override suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>> {
         val favoriteMovies = getFavoriteMoviesUseCase()
 
-        return favoriteMovies.map {
-            it.toGridView()
+        return if(favoriteMovies.isNotEmpty()){
+            ResultWrapper.Success(
+                favoriteMovies.map {
+                    it.toGridView()
+                }
+            )
+        } else {
+            ResultWrapper.Failure("The list of favorite movies is empty")
         }
     }
 

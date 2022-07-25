@@ -9,8 +9,10 @@ import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.domain.util.CacheMapper
 import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
+import com.example.dbm.popularmovieskt.util.ResultWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import javax.inject.Inject
 
 class MoviesRepository @Inject constructor(
@@ -21,11 +23,16 @@ class MoviesRepository @Inject constructor(
     @DispatchersModule.IODispatcher private val coroutineDispatcher: CoroutineDispatcher
 ): IMoviesRepository {
 
-    override suspend fun getListMovies(sortValue: String, page: Int): List<MovieDomain> {
+    override suspend fun getListMovies(sortValue: String, page: Int): ResultWrapper<List<MovieDomain>> {
         return withContext(coroutineDispatcher){
-            val networkResponse = networkDataSource.getMovies(sortValue = sortValue, page = page)
-            networkResponse.movies.map {
-                networkMapper.mapToDomainModel(it)
+            try {
+                val networkResponse = networkDataSource.getMovies(sortValue = sortValue, page = page)
+                val listDomainMovies = networkResponse.movies.map {
+                    networkMapper.mapToDomainModel(it)
+                }
+                ResultWrapper.Success(listDomainMovies)
+            } catch (e: IOException) {
+                ResultWrapper.Failure(e.message)
             }
         }
     }
