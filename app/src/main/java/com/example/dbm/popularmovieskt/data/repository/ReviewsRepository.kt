@@ -8,6 +8,7 @@ import com.example.dbm.popularmovieskt.domain.repository.IReviewsRepository
 import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import javax.inject.Inject
 
 class ReviewsRepository @Inject constructor(
@@ -18,10 +19,15 @@ class ReviewsRepository @Inject constructor(
 
     override suspend fun getMovieReviews(movieId: Int): List<ReviewDomain> {
         return withContext(coroutineDispatcher) {
-            val networkResponse = networkDataSource.getReviews(movieId = movieId)
-            networkResponse.reviews.map {
-                networkMapper.mapToDomainModel(it)
+            try {
+                val networkResponse = networkDataSource.getReviews(movieId = movieId)
+                networkResponse.reviews.map {
+                    networkMapper.mapToDomainModel(it)
+                }
+            } catch (e: IOException) {
+                emptyList()
             }
+
         }
     }
 

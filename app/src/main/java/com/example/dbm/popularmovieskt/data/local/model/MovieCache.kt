@@ -5,7 +5,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "favorite_movies")
 data class MovieCache(
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     var id: Int = 0,
     val movieId: Int,
     val movieName: String,

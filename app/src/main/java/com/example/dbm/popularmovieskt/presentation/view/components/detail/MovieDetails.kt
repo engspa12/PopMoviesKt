@@ -11,7 +11,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -94,10 +93,19 @@ fun MovieDetails(
                         onClick = {
                             onFavoriteButtonClicked(detailsMovie.movieId)
                         },
-                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFF009688))
+                        colors = if (detailsMovie.isFavorite)
+                            ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFFB40F02)
+                            )
+                        else
+                            ButtonDefaults.buttonColors(
+                                backgroundColor = Color(0xFF026D63)
+                            )
                     ) {
                         Text(
                             text = if (detailsMovie.isFavorite) "Remove from favorites" else "Add to favorites",
+                            textAlign = TextAlign.Center,
+                            color = Color(0xFFFFFFFF),
                             fontSize = 14.sp
                         )
                     }

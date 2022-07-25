@@ -28,15 +28,10 @@ class DetailsViewModel @Inject constructor(
         }
     }
 
-    fun addFavoriteMovie(movieId: Int){
+    fun handleFavoriteEdition(movieId: Int) {
         viewModelScope.launch(mainDispatcher) {
-            moviesService.addFavoriteMovie(movieId)
-        }
-    }
-
-    fun removeFavoriteMovie(movieId: Int) {
-        viewModelScope.launch(mainDispatcher) {
-            moviesService.removeFavoriteMovie(movieId)
+            moviesService.handleFavoriteEdition(movieId)
+            getMovieDetails(movieId)
         }
     }
 }

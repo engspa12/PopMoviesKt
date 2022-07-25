@@ -8,6 +8,7 @@ import com.example.dbm.popularmovieskt.domain.repository.ITrailersRepository
 import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
+import java.io.IOException
 import javax.inject.Inject
 
 class TrailersRepository @Inject constructor(
@@ -18,9 +19,13 @@ class TrailersRepository @Inject constructor(
 
     override suspend fun getMovieTrailers(movieId: Int): List<TrailerDomain> {
         return withContext(coroutineDispatcher) {
-            val networkResponse = networkDataSource.getTrailers(movieId = movieId)
-            networkResponse.trailers.map {
-                networkMapper.mapToDomainModel(it)
+            try {
+                val networkResponse = networkDataSource.getTrailers(movieId = movieId)
+                networkResponse.trailers.map {
+                    networkMapper.mapToDomainModel(it)
+                }
+            } catch (e: IOException) {
+                emptyList()
             }
         }
     }

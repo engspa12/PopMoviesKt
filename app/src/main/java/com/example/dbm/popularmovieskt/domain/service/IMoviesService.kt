@@ -8,6 +8,5 @@ interface IMoviesService {
     suspend fun getListMovies(sortValue: String): ResultWrapper<List<MovieGridView>>
     suspend fun getMovieDetails(movieId: Int): MovieDetailsView
     suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>>
-    suspend fun addFavoriteMovie(movieId: Int)
-    suspend fun removeFavoriteMovie(movieId: Int)
+    suspend fun handleFavoriteEdition(movieId: Int)
 }

@@ -73,6 +73,8 @@ class MoviesService @Inject constructor(
     override suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>> {
         val favoriteMovies = getFavoriteMoviesUseCase()
 
+        innerListMovies = favoriteMovies
+
         return if(favoriteMovies.isNotEmpty()){
             ResultWrapper.Success(
                 favoriteMovies.map {
@@ -84,13 +86,27 @@ class MoviesService @Inject constructor(
         }
     }
 
-    override suspend fun addFavoriteMovie(movieId: Int) {
+    private suspend fun addFavoriteMovie(movieId: Int) {
         val movie = findMovieById(movieId)
         addFavoriteMovieUseCase(movie)
     }
 
-    override suspend fun removeFavoriteMovie(movieId: Int) {
+    private suspend fun removeFavoriteMovie(movieId: Int) {
         removeFavoriteMovieUseCase(movieId)
+    }
+
+    override suspend fun handleFavoriteEdition(movieId: Int) {
+        val favoriteMovies = getFavoriteMoviesUseCase()
+
+        val result = favoriteMovies.filter { it.movieId == movieId }
+
+        if(result.isEmpty()){
+            addFavoriteMovie(movieId)
+        } else if (result.size == 1) {
+            removeFavoriteMovie(movieId)
+        } else {
+            throw RuntimeException("Data is corrupted, there are two favorite movies with the same ID")
+        }
     }
 
     private fun findMovieById(movieId: Int): MovieDomain {

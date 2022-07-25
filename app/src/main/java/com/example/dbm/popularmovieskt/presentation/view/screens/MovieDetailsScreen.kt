@@ -44,10 +44,9 @@ fun MovieDetailsScreen(
                     lazyListState,
                     modifier = modifier,
                     onFavoriteButtonClicked = { movieId ->
-                        println("The movieId of the item clicked is: $movieId")
+                        viewModel.handleFavoriteEdition(movieId)
                     },
                     onTrailerItemClicked = { trailerKey ->
-                        println("The url of the item clicked is: ${Constants.YOUTUBE_URL}${trailerKey}")
                         val intent = Intent(Intent.ACTION_VIEW, Uri.parse("${Constants.YOUTUBE_URL}${trailerKey}"))
                         if (intent.resolveActivity(context.packageManager) != null) {
                             context.startActivity(intent)
