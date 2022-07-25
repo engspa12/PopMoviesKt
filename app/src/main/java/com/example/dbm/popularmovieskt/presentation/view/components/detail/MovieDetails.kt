@@ -104,9 +104,10 @@ fun MovieDetails(
                     ) {
                         Text(
                             text = if (detailsMovie.isFavorite) "Remove from favorites" else "Add to favorites",
+                            modifier = Modifier.width(100.dp).height(30.dp).wrapContentHeight(align = Alignment.CenterVertically),
                             textAlign = TextAlign.Center,
                             color = Color(0xFFFFFFFF),
-                            fontSize = 14.sp
+                            fontSize = 12.sp
                         )
                     }
                 }
