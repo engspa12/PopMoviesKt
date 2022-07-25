@@ -30,7 +30,7 @@ class DetailsViewModel @Inject constructor(
 
     fun handleFavoriteEdition(movieId: Int) {
         viewModelScope.launch(mainDispatcher) {
-            moviesService.handleFavoriteEdition(movieId)
+            moviesService.handleFavoriteMovieEdition(movieId)
             getMovieDetails(movieId)
         }
     }

@@ -49,7 +49,7 @@ class MoviesService @Inject constructor(
     }
 
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsView {
-        val movie = findMovieById(movieId)
+        val movie = findMovieByIdInInnerList(movieId)
 
         val trailers = getTrailersUseCase(movieId).map {
             it.toView()
@@ -59,18 +59,34 @@ class MoviesService @Inject constructor(
             it.toView()
         }
 
-        val favoriteMovies = getFavoriteMoviesUseCase()
-
-        val isFavorite = favoriteMovies.filter { it.movieId == movieId }
-
         return movie.toDetailsView(
             trailers = trailers,
             reviews = reviews,
-            isFavorite = (isFavorite.size == 1)
+            isFavorite = checkIfMovieIsFavorite(movieId)
         )
     }
 
-    override suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>> {
+    override suspend fun handleFavoriteMovieEdition(movieId: Int) {
+        val favoriteMovies = getFavoriteMoviesUseCase()
+
+        val result = favoriteMovies.filter { it.movieId == movieId }
+
+        if(result.isEmpty()){
+            addFavoriteMovie(movieId)
+        } else if (result.size == 1) {
+            removeFavoriteMovie(movieId)
+        } else {
+            throw RuntimeException("Data is corrupted, there are two or more favorite movies with the same ID")
+        }
+    }
+
+    private suspend fun checkIfMovieIsFavorite(movieId: Int): Boolean{
+        val favoriteMovies = getFavoriteMoviesUseCase()
+        val isFavorite = favoriteMovies.filter { it.movieId == movieId }
+        return (isFavorite.size == 1)
+    }
+
+    private suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>> {
         val favoriteMovies = getFavoriteMoviesUseCase()
 
         innerListMovies = favoriteMovies
@@ -87,7 +103,7 @@ class MoviesService @Inject constructor(
     }
 
     private suspend fun addFavoriteMovie(movieId: Int) {
-        val movie = findMovieById(movieId)
+        val movie = findMovieByIdInInnerList(movieId)
         addFavoriteMovieUseCase(movie)
     }
 
@@ -95,21 +111,7 @@ class MoviesService @Inject constructor(
         removeFavoriteMovieUseCase(movieId)
     }
 
-    override suspend fun handleFavoriteEdition(movieId: Int) {
-        val favoriteMovies = getFavoriteMoviesUseCase()
-
-        val result = favoriteMovies.filter { it.movieId == movieId }
-
-        if(result.isEmpty()){
-            addFavoriteMovie(movieId)
-        } else if (result.size == 1) {
-            removeFavoriteMovie(movieId)
-        } else {
-            throw RuntimeException("Data is corrupted, there are two favorite movies with the same ID")
-        }
-    }
-
-    private fun findMovieById(movieId: Int): MovieDomain {
+    private fun findMovieByIdInInnerList(movieId: Int): MovieDomain {
         val matches = innerListMovies.filter { it.movieId == movieId }
         if(matches.isNotEmpty()){
             return matches[0]
