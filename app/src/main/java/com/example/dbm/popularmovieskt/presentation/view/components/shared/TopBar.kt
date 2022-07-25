@@ -3,19 +3,16 @@ package com.example.dbm.popularmovieskt.presentation.view.components.shared
 import androidx.compose.material.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
-import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.MoreVert
-import androidx.compose.material.icons.filled.Person
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.res.stringResource
 import androidx.navigation.NavHostController
-import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.global.Constants
 
 @Composable
 fun TopBar(
     showMenu: Boolean,
-    navigationChange: Constants.NavType,
+    titleTopBar: String,
+    navigationType: Constants.NavType,
     navController: NavHostController,
     onDismissMenu: () -> Unit,
     onMenuIconClick: () -> Unit,
@@ -24,14 +21,14 @@ fun TopBar(
     TopAppBar(
         title = {
             Text(
-                text = stringResource(id = R.string.app_name),
+                text = titleTopBar,
                 color = MaterialTheme.colors.onPrimary
             )
         },
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.onPrimary,
         navigationIcon = {
-            when(navigationChange) {
+            when(navigationType) {
                 Constants.NavType.NAV_MAIN -> {
                     IconButton(onClick = {
 
@@ -54,7 +51,7 @@ fun TopBar(
         },
         actions = {
             // RowScope here, so these icons will be placed horizontally
-            when(navigationChange) {
+            when(navigationType) {
                 Constants.NavType.NAV_MAIN -> {
                     IconButton(onClick = {
                         onMenuIconClick()
@@ -88,7 +85,7 @@ fun TopBar(
                                 onMenuItemClick(Constants.SORT_BY_FAVORITE_MOVIES)
                             }
                         ) {
-                            Text(text = "Sort By Favorite Movies")
+                            Text(text = "Sort By Favorites")
                         }
                     }
                 }

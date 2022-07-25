@@ -24,6 +24,7 @@ fun Navigation(
     navController: NavHostController,
     sortValue: String,
     onNavigationChange: (Constants.NavType) -> Unit,
+    onTitleChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -41,6 +42,19 @@ fun Navigation(
                 ) {
                 onNavigationChange(Constants.NavType.NAV_MAIN)
                 val mainViewModel = hiltViewModel<MainViewModel>()
+
+                when(sortValue) {
+                    Constants.SORT_BY_POPULAR -> {
+                        onTitleChange(Constants.POPULAR_TITLE)
+                    }
+                    Constants.SORT_BY_HIGHEST_RATED -> {
+                        onTitleChange(Constants.HIGHEST_RATED_TITLE)
+                    }
+                    Constants.SORT_BY_FAVORITE_MOVIES -> {
+                        onTitleChange(Constants.FAVORITES_TITLE)
+                    }
+                }
+
                 MoviesGridScreen(
                     gridLazyState = gridLazyState,
                     navController = navController,
@@ -63,6 +77,9 @@ fun Navigation(
                 val movieDetailsViewModel = hiltViewModel<DetailsViewModel>()
                 MovieDetailsScreen(
                     context = context,
+                    onMovieTitleChange = { movieTitle ->
+                        onTitleChange(movieTitle)
+                    },
                     movieId = backStackEntry.arguments?.getInt("movieId") ?: -1,
                     viewModel = movieDetailsViewModel,
                     modifier = modifier

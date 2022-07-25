@@ -26,6 +26,7 @@ fun MovieDetailsScreen(
     context: Context,
     movieId: Int,
     viewModel: DetailsViewModel,
+    onMovieTitleChange: (String) -> Unit,
     modifier: Modifier = Modifier
 ){
 
@@ -39,6 +40,7 @@ fun MovieDetailsScreen(
     when(uiState) {
         is DetailsState.Success -> {
             uiState.value?.let { movieDetails ->
+                onMovieTitleChange(movieDetails.movieName)
                 MovieDetails(
                     movieDetails,
                     lazyListState,
@@ -56,6 +58,7 @@ fun MovieDetailsScreen(
             }
         }
         is DetailsState.Error -> {
+            onMovieTitleChange("")
             ErrorIndicator(
                 errorMessage = uiState.errorMessage,
                 modifier = Modifier
@@ -65,6 +68,7 @@ fun MovieDetailsScreen(
             )
         }
         is DetailsState.Loading -> {
+            onMovieTitleChange("")
             ProgressBar(
                 message = uiState.loadingMessage,
                 modifier = Modifier
