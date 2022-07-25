@@ -31,7 +31,7 @@ class GetMoviesUseCase @Inject constructor(
                     returnedList.add(it)
                 }
 
-                return if(page == 5){
+                return if(page == Constants.MAX_PAGES){
                     ResultWrapper.Success(returnedList)
                 } else {
                     val newPage = page + 1

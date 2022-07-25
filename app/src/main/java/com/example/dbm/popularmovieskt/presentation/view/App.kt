@@ -23,12 +23,15 @@ fun App(
     val scaffoldState = rememberScaffoldState()
     var showMenu by remember { mutableStateOf(false) }
     var sortValue by rememberSaveable { mutableStateOf(Constants.SORT_BY_POPULAR) }
+    var navigationChange by rememberSaveable { mutableStateOf(Constants.NavType.NAV_MAIN)}
 
     Scaffold(
         scaffoldState = scaffoldState,
         topBar = {
             TopBar(
                 showMenu = showMenu,
+                navigationChange = navigationChange,
+                navController = navController,
                 onDismissMenu = {
                     showMenu = false
                 },
@@ -46,6 +49,9 @@ fun App(
             gridLazyState = gridLazyState,
             navController = navController,
             sortValue = sortValue,
+            onNavigationChange = {
+                navigationChange = it
+            },
             modifier = Modifier.padding(paddingValues)
         )
     }

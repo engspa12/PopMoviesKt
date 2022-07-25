@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.view.screens.MovieDetailsScreen
 import com.example.dbm.popularmovieskt.presentation.view.screens.MoviesGridScreen
 import com.example.dbm.popularmovieskt.presentation.viewmodel.DetailsViewModel
@@ -22,6 +23,7 @@ fun Navigation(
     gridLazyState: LazyGridState,
     navController: NavHostController,
     sortValue: String,
+    onNavigationChange: (Constants.NavType) -> Unit,
     modifier: Modifier = Modifier
 ) {
 
@@ -37,6 +39,7 @@ fun Navigation(
                     }
                 )
                 ) {
+                onNavigationChange(Constants.NavType.NAV_MAIN)
                 val mainViewModel = hiltViewModel<MainViewModel>()
                 MoviesGridScreen(
                     gridLazyState = gridLazyState,
@@ -56,6 +59,7 @@ fun Navigation(
                     }
                 )
             ) { backStackEntry ->
+                onNavigationChange(Constants.NavType.NAV_DETAIL)
                 val movieDetailsViewModel = hiltViewModel<DetailsViewModel>()
                 MovieDetailsScreen(
                     context = context,

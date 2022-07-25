@@ -14,20 +14,20 @@ interface ServiceAPI {
     @GET("{sort_value}")
     suspend fun getMovies(
         @Path("sort_value") sortValue: String,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("api_key") apiKey: String = Constants.API_KEY,
         @Query("language") language: String = Constants.LANGUAGE,
         @Query("page") page: Int): MoviesResponse
 
     @GET("{movie_id}/videos")
     suspend fun getTrailers(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("api_key") apiKey: String = Constants.API_KEY,
         @Query("language") language: String = Constants.LANGUAGE): TrailersResponse
 
     @GET("{movie_id}/reviews")
     suspend fun getReviews(
         @Path("movie_id") movieId: Int,
-        @Query("api_key") apiKey: String = BuildConfig.API_KEY,
+        @Query("api_key") apiKey: String = Constants.API_KEY,
         @Query("language") language: String = Constants.LANGUAGE): ReviewsResponse
 
 }
