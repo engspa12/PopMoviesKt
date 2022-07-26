@@ -19,6 +19,6 @@ object Constants {
 
     enum class NavType {
         NAV_MAIN,
-        NAV_DETAIL
+        NAV_DETAILS
     }
 }

@@ -68,7 +68,7 @@ fun MovieDetailsScreen(
             )
         }
         is DetailsState.Loading -> {
-            onMovieTitleChange("")
+            onMovieTitleChange("Loading Movie Details ...")
             ProgressBar(
                 message = uiState.loadingMessage,
                 modifier = Modifier

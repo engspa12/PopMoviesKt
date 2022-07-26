@@ -73,7 +73,7 @@ fun Navigation(
                     }
                 )
             ) { backStackEntry ->
-                onNavigationChange(Constants.NavType.NAV_DETAIL)
+                onNavigationChange(Constants.NavType.NAV_DETAILS)
                 val movieDetailsViewModel = hiltViewModel<DetailsViewModel>()
                 MovieDetailsScreen(
                     context = context,
