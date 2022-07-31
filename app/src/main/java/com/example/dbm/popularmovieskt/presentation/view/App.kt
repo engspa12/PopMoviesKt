@@ -39,11 +39,12 @@ fun App(
                 },
                 onMenuIconClick = {
                     showMenu = !showMenu
+                },
+                onMenuItemClick = { newSortValue ->
+                    showMenu = false
+                    sortValue = newSortValue
                 }
-            ) { newSortValue ->
-                showMenu = false
-                sortValue = newSortValue
-            }
+            )
         }
     ) { paddingValues ->
         Navigation(

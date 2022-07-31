@@ -26,10 +26,12 @@ fun MovieDetails(
     detailsMovie: MovieDetailsView,
     lazyListState: LazyListState,
     onFavoriteButtonClicked: (Int) -> Unit,
-    onTrailerItemClicked: (String) -> Unit
+    onTrailerItemClicked: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     LazyColumn(
-        state = lazyListState
+        state = lazyListState,
+        modifier = modifier
     ) {
         item {
             Text(

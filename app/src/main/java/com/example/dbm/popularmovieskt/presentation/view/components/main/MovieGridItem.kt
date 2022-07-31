@@ -14,8 +14,8 @@ import com.skydoves.landscapist.glide.GlideImage
 @Composable
 fun MovieGridItem(
     urlImage: String,
-    modifier: Modifier = Modifier,
-    onItemClicked: () -> Unit
+    onItemClicked: () -> Unit,
+    modifier: Modifier = Modifier
 ) {
     GlideImage(
         imageModel = urlImage,

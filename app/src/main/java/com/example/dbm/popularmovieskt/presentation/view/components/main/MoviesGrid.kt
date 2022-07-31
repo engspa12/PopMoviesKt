@@ -14,20 +14,23 @@ import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
 fun MoviesGrid(
     gridLazyState: LazyGridState,
     list: List<MovieGridView>?,
-    onItemClicked: (Int) -> Unit
+    onItemClicked: (Int) -> Unit,
+    modifier: Modifier = Modifier
 ){
     LazyVerticalGrid(
         columns = GridCells.Adaptive(150.dp),
-        state = gridLazyState
+        state = gridLazyState,
+        modifier = modifier
     ) {
         itemsIndexed(list ?: listOf()) { _ , gridItemView ->
             MovieGridItem(
                 urlImage = gridItemView.moviePosterPath,
+                onItemClicked = {
+                    onItemClicked(gridItemView.movieId)
+                },
                 modifier = Modifier
                 .requiredHeight(height = 350.dp)
-            ){
-                onItemClicked(gridItemView.movieId)
-            }
+            )
         }
     }
 

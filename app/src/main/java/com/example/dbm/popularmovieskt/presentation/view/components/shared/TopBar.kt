@@ -31,9 +31,11 @@ fun TopBar(
     navController: NavHostController,
     onDismissMenu: () -> Unit,
     onMenuIconClick: () -> Unit,
-    onMenuItemClick: (String) -> Unit
+    onMenuItemClick: (String) -> Unit,
+    modifier: Modifier = Modifier
 ) {
     TopAppBar(
+        modifier = modifier,
         backgroundColor = MaterialTheme.colors.primary,
         contentColor = MaterialTheme.colors.onPrimary,
         contentPadding = PaddingValues(start = 18.dp),
