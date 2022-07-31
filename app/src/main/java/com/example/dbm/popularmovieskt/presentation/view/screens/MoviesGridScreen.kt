@@ -24,8 +24,7 @@ fun MoviesGridScreen(
     gridLazyState: LazyGridState,
     navController: NavController,
     viewModel: MainViewModel,
-    sortValue: String,
-    modifier: Modifier = Modifier
+    sortValue: String
 ){
 
     val uiState by viewModel.uiState.collectAsState()
@@ -41,8 +40,7 @@ fun MoviesGridScreen(
                 list = uiState.value,
                 onItemClicked = { movieId ->
                     navController.navigate(Screen.DetailScreen.withArgs(movieId))
-                },
-                modifier = modifier
+                }
             )
         }
         is MainState.Error -> {

@@ -25,13 +25,11 @@ import com.skydoves.landscapist.glide.GlideImage
 fun MovieDetails(
     detailsMovie: MovieDetailsView,
     lazyListState: LazyListState,
-    modifier: Modifier = Modifier,
     onFavoriteButtonClicked: (Int) -> Unit,
     onTrailerItemClicked: (String) -> Unit
 ) {
     LazyColumn(
-        state = lazyListState,
-        modifier = modifier
+        state = lazyListState
     ) {
         item {
             Text(

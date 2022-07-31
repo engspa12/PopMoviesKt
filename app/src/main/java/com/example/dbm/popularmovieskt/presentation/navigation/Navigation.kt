@@ -1,6 +1,7 @@
 package com.example.dbm.popularmovieskt.presentation.navigation
 
 import android.content.Context
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -28,7 +29,7 @@ fun Navigation(
     modifier: Modifier = Modifier
 ) {
 
-    NavHost(navController = navController, startDestination = "movies"){
+    NavHost(navController = navController, startDestination = "movies", modifier = modifier){
         navigation(startDestination = Screen.MainScreen.route + "/sortValue", route = "movies") {
             composable(
                 route = Screen.MainScreen.route + "/sortValue",
@@ -59,8 +60,7 @@ fun Navigation(
                     gridLazyState = gridLazyState,
                     navController = navController,
                     viewModel = mainViewModel,
-                    sortValue = sortValue,
-                    modifier = modifier
+                    sortValue = sortValue
                 )
             }
             composable(
@@ -81,8 +81,7 @@ fun Navigation(
                         onTitleChange(movieTitle)
                     },
                     movieId = backStackEntry.arguments?.getInt("movieId") ?: -1,
-                    viewModel = movieDetailsViewModel,
-                    modifier = modifier
+                    viewModel = movieDetailsViewModel
                 )
             }
         }

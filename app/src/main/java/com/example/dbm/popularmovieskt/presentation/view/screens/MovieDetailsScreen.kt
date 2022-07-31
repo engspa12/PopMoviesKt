@@ -26,8 +26,7 @@ fun MovieDetailsScreen(
     context: Context,
     movieId: Int,
     viewModel: DetailsViewModel,
-    onMovieTitleChange: (String) -> Unit,
-    modifier: Modifier = Modifier
+    onMovieTitleChange: (String) -> Unit
 ){
 
     val lazyListState = rememberLazyListState()
@@ -44,7 +43,6 @@ fun MovieDetailsScreen(
                 MovieDetails(
                     movieDetails,
                     lazyListState,
-                    modifier = modifier,
                     onFavoriteButtonClicked = { movieId ->
                         viewModel.handleFavoriteEdition(movieId)
                     },
