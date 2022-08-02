@@ -1,7 +1,6 @@
 package com.example.dbm.popularmovieskt.presentation.navigation
 
 import android.content.Context
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -59,7 +58,9 @@ fun Navigation(
 
                 MoviesGridScreen(
                     gridLazyState = gridLazyState,
-                    navController = navController,
+                    navigateToDetailsScreen = { movieId ->
+                        navController.navigate(Screen.DetailScreen.withArgs(movieId))
+                    },
                     viewModel = mainViewModel,
                     sortValue = sortValue
                 )

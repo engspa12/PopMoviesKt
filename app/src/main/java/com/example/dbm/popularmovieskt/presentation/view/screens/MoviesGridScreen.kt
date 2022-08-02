@@ -11,9 +11,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import androidx.navigation.NavController
 import com.example.dbm.popularmovieskt.presentation.state.MainState
-import com.example.dbm.popularmovieskt.presentation.navigation.Screen
 import com.example.dbm.popularmovieskt.presentation.view.components.main.MoviesGrid
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ErrorIndicator
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ProgressBar
@@ -22,7 +20,7 @@ import com.example.dbm.popularmovieskt.presentation.viewmodel.MainViewModel
 @Composable
 fun MoviesGridScreen(
     gridLazyState: LazyGridState,
-    navController: NavController,
+    navigateToDetailsScreen: (Int) -> Unit,
     viewModel: MainViewModel,
     sortValue: String
 ){
@@ -39,7 +37,7 @@ fun MoviesGridScreen(
                 gridLazyState = gridLazyState,
                 list = uiState.value,
                 onItemClicked = { movieId ->
-                    navController.navigate(Screen.DetailScreen.withArgs(movieId))
+                    navigateToDetailsScreen(movieId)
                 }
             )
         }
