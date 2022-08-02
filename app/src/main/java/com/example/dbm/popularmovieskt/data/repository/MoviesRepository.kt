@@ -10,6 +10,7 @@ import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.domain.util.CacheMapper
 import com.example.dbm.popularmovieskt.domain.util.NetworkMapper
 import com.example.dbm.popularmovieskt.util.ResultWrapper
+import com.example.dbm.popularmovieskt.util.StringWrapper
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.withContext
 import java.io.IOException
@@ -32,7 +33,7 @@ class MoviesRepository @Inject constructor(
                 }
                 ResultWrapper.Success(listDomainMovies)
             } catch (e: IOException) {
-                ResultWrapper.Failure(e.message)
+                ResultWrapper.Failure(StringWrapper.SimpleString(e.message ?: ""))
             }
         }
     }

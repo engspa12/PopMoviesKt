@@ -1,9 +1,11 @@
 package com.example.dbm.popularmovieskt.domain.usecase.movies
 
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.util.ResultWrapper
+import com.example.dbm.popularmovieskt.util.StringWrapper
 import javax.inject.Inject
 
 interface IGetMoviesUseCase {
@@ -39,7 +41,7 @@ class GetMoviesUseCase @Inject constructor(
                 }
             }
             is ResultWrapper.Failure -> {
-                return ResultWrapper.Failure("An error occurred while retrieving the movies data")
+                return ResultWrapper.Failure(StringWrapper.ResourceString(id = R.string.error_retrieving_data))
             }
         }
     }

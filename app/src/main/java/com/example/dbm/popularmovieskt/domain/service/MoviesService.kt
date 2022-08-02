@@ -1,5 +1,6 @@
 package com.example.dbm.popularmovieskt.domain.service
 
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IAddFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetFavoriteMoviesUseCase
@@ -13,7 +14,9 @@ import com.example.dbm.popularmovieskt.domain.util.toView
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
+import com.example.dbm.popularmovieskt.util.IValidator
 import com.example.dbm.popularmovieskt.util.ResultWrapper
+import com.example.dbm.popularmovieskt.util.StringWrapper
 import javax.inject.Inject
 
 class MoviesService @Inject constructor(
@@ -22,7 +25,8 @@ class MoviesService @Inject constructor(
     private val addFavoriteMovieUseCase: IAddFavoriteMovieUseCase,
     private val removeFavoriteMovieUseCase: IRemoveFavoriteMovieUseCase,
     private val getTrailersUseCase: IGetTrailersUseCase,
-    private val getReviewsUseCase: IGetReviewsUseCase
+    private val getReviewsUseCase: IGetReviewsUseCase,
+    private val validator: IValidator
 ): IMoviesService {
 
     private var innerListMovies: List<MovieDomain> = emptyList()
@@ -31,17 +35,21 @@ class MoviesService @Inject constructor(
 
         return if(sortValue != Constants.SORT_BY_FAVORITE_MOVIES){
 
-            when(val result = getMoviesUseCase(sortValue)) {
-                is ResultWrapper.Success -> {
-                    innerListMovies = result.value
-                    val listMovies = result.value.map {
-                        it.toGridView()
+            if(validator.isOnline()){
+                when(val result = getMoviesUseCase(sortValue)) {
+                    is ResultWrapper.Success -> {
+                        innerListMovies = result.value
+                        val listMovies = result.value.map {
+                            it.toGridView()
+                        }
+                        ResultWrapper.Success(listMovies)
                     }
-                    ResultWrapper.Success(listMovies)
+                    is ResultWrapper.Failure -> {
+                        ResultWrapper.Failure(result.errorMessage)
+                    }
                 }
-                is ResultWrapper.Failure -> {
-                    ResultWrapper.Failure(result.errorMessage)
-                }
+            } else {
+                ResultWrapper.Failure(StringWrapper.ResourceString(id = R.string.no_internet_connection))
             }
         } else {
             getFavoriteMovies()
@@ -51,19 +59,28 @@ class MoviesService @Inject constructor(
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsView {
         val movie = findMovieByIdInInnerList(movieId)
 
-        val trailers = getTrailersUseCase(movieId).map {
-            it.toView()
+        return if(validator.isOnline()){
+            val trailers = getTrailersUseCase(movieId).map {
+                it.toView()
+            }
+
+            val reviews = getReviewsUseCase(movieId).map {
+                it.toView()
+            }
+
+            movie.toDetailsView(
+                trailers = trailers,
+                reviews = reviews,
+                isFavorite = checkIfMovieIsFavorite(movieId)
+            )
+        } else {
+            movie.toDetailsView(
+                trailers = null,
+                reviews = null,
+                isFavorite = checkIfMovieIsFavorite(movieId)
+            )
         }
 
-        val reviews = getReviewsUseCase(movieId).map {
-            it.toView()
-        }
-
-        return movie.toDetailsView(
-            trailers = trailers,
-            reviews = reviews,
-            isFavorite = checkIfMovieIsFavorite(movieId)
-        )
     }
 
     override suspend fun handleFavoriteMovieEdition(movieId: Int) {
@@ -98,7 +115,7 @@ class MoviesService @Inject constructor(
                 }
             )
         } else {
-            ResultWrapper.Failure("The list of favorite movies is empty")
+            ResultWrapper.Failure(StringWrapper.ResourceString(id = R.string.empty_movies_list))
         }
     }
 

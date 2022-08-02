@@ -13,7 +13,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
 import com.example.dbm.popularmovieskt.presentation.view.components.detail.MovieDetails
@@ -56,9 +58,9 @@ fun MovieDetailsScreen(
             }
         }
         is DetailsState.Error -> {
-            onMovieTitleChange("")
+            onMovieTitleChange(stringResource(id = R.string.error_retrieving_data))
             ErrorIndicator(
-                errorMessage = uiState.errorMessage,
+                errorMessage = uiState.errorMessage.asString(),
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)
@@ -66,9 +68,9 @@ fun MovieDetailsScreen(
             )
         }
         is DetailsState.Loading -> {
-            onMovieTitleChange("Loading Movie Details ...")
+            onMovieTitleChange(stringResource(id = R.string.loading_movie_details))
             ProgressBar(
-                message = uiState.loadingMessage,
+                message = uiState.loadingMessage.asString(),
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)

@@ -45,7 +45,7 @@ fun MoviesGridScreen(
         }
         is MainState.Error -> {
             ErrorIndicator(
-                errorMessage = uiState.errorMessage,
+                errorMessage = uiState.errorMessage.asString(),
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)
@@ -54,7 +54,7 @@ fun MoviesGridScreen(
         }
         is MainState.Loading -> {
             ProgressBar(
-                message = uiState.loadingMessage,
+                message = uiState.loadingMessage.asString(),
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)

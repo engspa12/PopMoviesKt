@@ -2,9 +2,11 @@ package com.example.dbm.popularmovieskt.presentation.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
+import com.example.dbm.popularmovieskt.util.StringWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -18,7 +20,7 @@ class DetailsViewModel @Inject constructor(
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<DetailsState>(DetailsState.Loading("Loading Details..."))
+    private val _uiState = MutableStateFlow<DetailsState>(DetailsState.Loading(StringWrapper.ResourceString(id = R.string.loading_movie_details)))
     val uiState: StateFlow<DetailsState> = _uiState
 
     fun getMovieDetails(movieId: Int){

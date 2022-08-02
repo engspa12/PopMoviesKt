@@ -1,13 +1,14 @@
 package com.example.dbm.popularmovieskt.presentation.state
 
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
+import com.example.dbm.popularmovieskt.util.StringWrapper
 
 sealed class DetailsState(
     val value: MovieDetailsView? = null,
-    val errorMessage: String = "",
-    val loadingMessage: String = ""
+    val errorMessage: StringWrapper = StringWrapper.SimpleString(""),
+    val loadingMessage: StringWrapper = StringWrapper.SimpleString("")
 ) {
     class Success(value: MovieDetailsView?): DetailsState(value)
-    class Error(errorMessage: String): DetailsState(errorMessage = errorMessage)
-    class Loading(loadingMessage: String) : DetailsState(loadingMessage = loadingMessage)
+    class Error(errorMessage: StringWrapper): DetailsState(errorMessage = errorMessage)
+    class Loading(loadingMessage: StringWrapper) : DetailsState(loadingMessage = loadingMessage)
 }

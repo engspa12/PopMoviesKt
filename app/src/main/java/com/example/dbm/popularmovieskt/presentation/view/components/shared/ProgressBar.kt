@@ -19,13 +19,14 @@ fun ProgressBar(
     Column(
         modifier = modifier) {
         CircularProgressIndicator(
+            color = MaterialTheme.colors.primaryVariant,
             modifier = Modifier
                 .align(alignment = Alignment.CenterHorizontally)
                 .requiredSize(50.dp)
         )
         Text(
             text = message,
-            color = MaterialTheme.colors.primary,
+            color = MaterialTheme.colors.primaryVariant,
             modifier =
             Modifier.padding(vertical = 16.dp)
                 .align(alignment = Alignment.CenterHorizontally)

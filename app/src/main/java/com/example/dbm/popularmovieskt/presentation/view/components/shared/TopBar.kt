@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.ExperimentalTextApi
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
@@ -20,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.em
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.global.Constants
 
 @OptIn(ExperimentalTextApi::class)
@@ -56,7 +58,7 @@ fun TopBar(
                                 navController.popBackStack()
                             },
                         imageVector = Icons.Filled.ArrowBack,
-                        contentDescription = "Go back to main",
+                        contentDescription = stringResource(id = R.string.go_back_content_description),
                         tint = MaterialTheme.colors.onPrimary
                     )
                 }
@@ -95,7 +97,7 @@ fun TopBar(
                                     onMenuIconClick()
                                 },
                             imageVector = Icons.Filled.MoreVert,
-                            contentDescription = "More options",
+                            contentDescription = stringResource(id = R.string.more_options_content_description),
                             tint = MaterialTheme.colors.onPrimary
                         )
 
@@ -108,21 +110,21 @@ fun TopBar(
                                     onMenuItemClick(Constants.SORT_BY_POPULAR)
                                 }
                             ) {
-                                Text(text = "Sort By Popular")
+                                Text(text = stringResource(id = R.string.sort_by_popular_option))
                             }
                             DropdownMenuItem(
                                 onClick = {
                                     onMenuItemClick(Constants.SORT_BY_HIGHEST_RATED)
                                 }
                             ) {
-                                Text(text = "Sort By Highest Rated")
+                                Text(text = stringResource(id = R.string.sort_by_highest_rated_option))
                             }
                             DropdownMenuItem(
                                 onClick = {
                                     onMenuItemClick(Constants.SORT_BY_FAVORITE_MOVIES)
                                 }
                             ) {
-                                Text(text = "Sort By Favorites")
+                                Text(text = stringResource(id = R.string.sort_by_favorites_option))
                             }
                         }
                     }

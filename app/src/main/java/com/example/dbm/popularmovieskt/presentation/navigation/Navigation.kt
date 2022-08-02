@@ -3,7 +3,7 @@ package com.example.dbm.popularmovieskt.presentation.navigation
 import android.content.Context
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.LazyGridState
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
@@ -12,6 +12,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import androidx.navigation.navArgument
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.view.screens.MovieDetailsScreen
 import com.example.dbm.popularmovieskt.presentation.view.screens.MoviesGridScreen
@@ -46,13 +47,13 @@ fun Navigation(
 
                 when(sortValue) {
                     Constants.SORT_BY_POPULAR -> {
-                        onTitleChange(Constants.POPULAR_TITLE)
+                        onTitleChange(context.getString(R.string.popular_movies_title))
                     }
                     Constants.SORT_BY_HIGHEST_RATED -> {
-                        onTitleChange(Constants.HIGHEST_RATED_TITLE)
+                        onTitleChange(context.getString(R.string.highest_rated_movies_title))
                     }
                     Constants.SORT_BY_FAVORITE_MOVIES -> {
-                        onTitleChange(Constants.FAVORITES_TITLE)
+                        onTitleChange(context.getString(R.string.favorite_movies_title))
                     }
                 }
 

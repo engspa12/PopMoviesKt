@@ -11,12 +11,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.request.RequestOptions
+import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.skydoves.landscapist.ShimmerParams
 import com.skydoves.landscapist.glide.GlideImage
@@ -87,13 +89,14 @@ fun MovieDetails(
                     Text(
                         fontSize = 28.sp,
                         fontWeight = FontWeight.W300,
-                        text = "${detailsMovie.movieRating}/10"
+                        text = stringResource(id = R.string.movie_rating, detailsMovie.movieRating)
                     )
                     Button(
                         onClick = {
                             onFavoriteButtonClicked(detailsMovie.movieId)
                         },
-                        colors = if (detailsMovie.isFavorite)
+                        colors =
+                        if (detailsMovie.isFavorite)
                             ButtonDefaults.buttonColors(
                                 backgroundColor = Color(0xFFB40F02)
                             )
@@ -103,8 +106,15 @@ fun MovieDetails(
                             )
                     ) {
                         Text(
-                            text = if (detailsMovie.isFavorite) "Remove from favorites" else "Add to favorites",
-                            modifier = Modifier.width(100.dp).height(30.dp).wrapContentHeight(align = Alignment.CenterVertically),
+                            text =
+                            if (detailsMovie.isFavorite)
+                                stringResource(id = R.string.remove_from_favorites)
+                            else
+                                stringResource(id = R.string.add_to_favorites),
+                            modifier = Modifier
+                                .width(100.dp)
+                                .height(30.dp)
+                                .wrapContentHeight(align = Alignment.CenterVertically),
                             textAlign = TextAlign.Center,
                             color = Color(0xFFFFFFFF),
                             fontSize = 12.sp
@@ -132,23 +142,37 @@ fun MovieDetails(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(vertical = 12.dp, horizontal = 28.dp),
-                text = "Trailers",
+                text = stringResource(id = R.string.trailers_title),
                 fontWeight = FontWeight.W600,
                 fontSize = 32.sp
             )
         }
-        if (detailsMovie.trailers != null && detailsMovie.trailers.isNotEmpty()) {
-            itemsIndexed(detailsMovie.trailers) { index, trailer ->
-                Trailer(
-                    trailerView = trailer,
-                    onTrailerClicked = {
-                        onTrailerItemClicked(it)
-                    },
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .wrapContentHeight(align = Alignment.CenterVertically)
-                        .padding(vertical = 8.dp, horizontal = 28.dp)
-                )
+        if (detailsMovie.trailers != null) {
+            if(detailsMovie.trailers.isNotEmpty()) {
+                itemsIndexed(detailsMovie.trailers) { index, trailer ->
+                    Trailer(
+                        trailerView = trailer,
+                        onTrailerClicked = {
+                            onTrailerItemClicked(it)
+                        },
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(align = Alignment.CenterVertically)
+                            .padding(vertical = 8.dp, horizontal = 28.dp)
+                    )
+                }
+            } else {
+                item {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(align = Alignment.CenterVertically)
+                            .padding(vertical = 8.dp, horizontal = 28.dp),
+                        fontWeight = FontWeight.W600,
+                        text = stringResource(id = R.string.no_trailers_available_message),
+                        fontSize = 16.sp
+                    )
+                }
             }
         } else {
             item {
@@ -158,7 +182,7 @@ fun MovieDetails(
                         .wrapContentHeight(align = Alignment.CenterVertically)
                         .padding(vertical = 8.dp, horizontal = 28.dp),
                     fontWeight = FontWeight.W600,
-                    text = "There are no trailers available",
+                    text = stringResource(id = R.string.no_internet_connection),
                     fontSize = 16.sp
                 )
             }
@@ -169,17 +193,31 @@ fun MovieDetails(
                     .fillMaxWidth()
                     .padding(vertical = 12.dp, horizontal = 28.dp),
                 fontWeight = FontWeight.W600,
-                text = "Reviews",
+                text = stringResource(id = R.string.reviews_title),
                 fontSize = 32.sp
             )
         }
-        if (detailsMovie.reviews != null && detailsMovie.reviews.isNotEmpty()) {
-            itemsIndexed(detailsMovie.reviews) { index, review ->
-                Review(
-                    reviewView = review,
-                    modifier = Modifier
-                        .padding(vertical = 8.dp, horizontal = 28.dp)
-                )
+        if (detailsMovie.reviews != null) {
+            if(detailsMovie.reviews.isNotEmpty()){
+                itemsIndexed(detailsMovie.reviews) { index, review ->
+                    Review(
+                        reviewView = review,
+                        modifier = Modifier
+                            .padding(vertical = 8.dp, horizontal = 28.dp)
+                    )
+                }
+            } else {
+                item {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .wrapContentHeight(align = Alignment.CenterVertically)
+                            .padding(vertical = 8.dp, horizontal = 28.dp),
+                        fontWeight = FontWeight.W600,
+                        text = stringResource(id = R.string.no_reviews_available_message),
+                        fontSize = 16.sp
+                    )
+                }
             }
         } else {
             item {
@@ -189,7 +227,7 @@ fun MovieDetails(
                         .wrapContentHeight(align = Alignment.CenterVertically)
                         .padding(vertical = 8.dp, horizontal = 28.dp),
                     fontWeight = FontWeight.W600,
-                    text = "There are no reviews available",
+                    text = stringResource(id = R.string.no_internet_connection),
                     fontSize = 16.sp
                 )
             }
