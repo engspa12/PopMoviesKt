@@ -34,7 +34,9 @@ fun App(
                 showMenu = showMenu,
                 titleTopBar = titleTopBar,
                 navigationType = navigationType,
-                navController = navController,
+                goBackToMain = {
+                    navController.popBackStack()
+                },
                 onDismissMenu = {
                     showMenu = false
                 },

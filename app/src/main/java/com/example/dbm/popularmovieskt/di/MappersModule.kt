@@ -20,7 +20,7 @@ import dagger.hilt.components.SingletonComponent
 
 @Module
 @InstallIn(SingletonComponent::class)
-object DataMappersModule {
+object MappersModule {
 
     @Provides
     fun provideMovieNetworkMapper(): NetworkMapper<MovieNetwork, MovieDomain> {

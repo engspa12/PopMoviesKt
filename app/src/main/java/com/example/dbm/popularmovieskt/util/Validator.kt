@@ -7,6 +7,10 @@ import android.net.NetworkCapabilities.*
 import android.os.Build
 import javax.inject.Inject
 
+interface IValidator {
+    fun isOnline(): Boolean
+}
+
 class Validator @Inject constructor(
     private val context: Context
 ): IValidator {

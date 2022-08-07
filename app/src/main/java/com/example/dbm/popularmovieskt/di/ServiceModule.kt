@@ -17,7 +17,7 @@ import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
-object ServicesModule {
+object ServiceModule {
 
     @Provides
     @Singleton
