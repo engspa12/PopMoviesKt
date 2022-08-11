@@ -8,7 +8,7 @@ import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IRemoveFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.reviews.IGetReviewsUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.trailers.IGetTrailersUseCase
-import com.example.dbm.popularmovieskt.util.IValidator
+import com.example.dbm.popularmovieskt.util.IConnectionChecker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -28,7 +28,7 @@ object ServiceModule {
         removeFavoriteMovieUseCase: IRemoveFavoriteMovieUseCase,
         getTrailersUseCase: IGetTrailersUseCase,
         getReviewsUseCase: IGetReviewsUseCase,
-        validator: IValidator
+        validator: IConnectionChecker
     ): IMoviesService {
         return MoviesService(
             getMoviesUseCase,

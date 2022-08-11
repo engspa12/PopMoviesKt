@@ -14,7 +14,7 @@ import com.example.dbm.popularmovieskt.domain.util.toView
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
-import com.example.dbm.popularmovieskt.util.IValidator
+import com.example.dbm.popularmovieskt.util.IConnectionChecker
 import com.example.dbm.popularmovieskt.util.ResultWrapper
 import com.example.dbm.popularmovieskt.util.StringWrapper
 import javax.inject.Inject
@@ -26,7 +26,7 @@ class MoviesService @Inject constructor(
     private val removeFavoriteMovieUseCase: IRemoveFavoriteMovieUseCase,
     private val getTrailersUseCase: IGetTrailersUseCase,
     private val getReviewsUseCase: IGetReviewsUseCase,
-    private val validator: IValidator
+    private val validator: IConnectionChecker
 ): IMoviesService {
 
     private var innerListMovies: List<MovieDomain> = emptyList()
