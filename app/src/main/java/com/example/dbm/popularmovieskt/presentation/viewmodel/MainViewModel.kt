@@ -21,7 +21,7 @@ class MainViewModel @Inject constructor(
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<MainState>(MainState.Loading(StringWrapper.ResourceString(id = R.string.loading_movies)))
+    private val _uiState = MutableStateFlow<MainState>(MainState.Loading(StringWrapper.ResourceStringWrapper(id = R.string.loading_movies)))
     val uiState: StateFlow<MainState> = _uiState
 
     fun getMovies(sortValue: String){
@@ -41,7 +41,7 @@ class MainViewModel @Inject constructor(
     }
 
     private fun showProgressBar() {
-        _uiState.value = MainState.Loading(StringWrapper.ResourceString(id = R.string.loading_movies))
+        _uiState.value = MainState.Loading(StringWrapper.ResourceStringWrapper(id = R.string.loading_movies))
     }
 
 }

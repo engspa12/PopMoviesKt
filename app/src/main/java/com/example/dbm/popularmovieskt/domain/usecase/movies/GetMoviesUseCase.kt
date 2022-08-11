@@ -41,7 +41,7 @@ class GetMoviesUseCase @Inject constructor(
                 }
             }
             is ResultWrapper.Failure -> {
-                return ResultWrapper.Failure(StringWrapper.ResourceString(id = R.string.error_retrieving_data))
+                return ResultWrapper.Failure(StringWrapper.ResourceStringWrapper(id = R.string.error_retrieving_data))
             }
         }
     }

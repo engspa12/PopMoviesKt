@@ -33,7 +33,7 @@ class MoviesRepository @Inject constructor(
                 }
                 ResultWrapper.Success(listDomainMovies)
             } catch (e: IOException) {
-                ResultWrapper.Failure(StringWrapper.SimpleString(e.message ?: ""))
+                ResultWrapper.Failure(StringWrapper.SimpleStringWrapper(e.message ?: ""))
             }
         }
     }

@@ -20,7 +20,7 @@ class DetailsViewModel @Inject constructor(
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<DetailsState>(DetailsState.Loading(StringWrapper.ResourceString(id = R.string.loading_movie_details)))
+    private val _uiState = MutableStateFlow<DetailsState>(DetailsState.Loading(StringWrapper.ResourceStringWrapper(id = R.string.loading_movie_details)))
     val uiState: StateFlow<DetailsState> = _uiState
 
     fun getMovieDetails(movieId: Int){

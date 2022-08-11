@@ -49,7 +49,7 @@ class MoviesService @Inject constructor(
                     }
                 }
             } else {
-                ResultWrapper.Failure(StringWrapper.ResourceString(id = R.string.no_internet_connection))
+                ResultWrapper.Failure(StringWrapper.ResourceStringWrapper(id = R.string.no_internet_connection))
             }
         } else {
             getFavoriteMovies()
@@ -115,7 +115,7 @@ class MoviesService @Inject constructor(
                 }
             )
         } else {
-            ResultWrapper.Failure(StringWrapper.ResourceString(id = R.string.empty_movies_list))
+            ResultWrapper.Failure(StringWrapper.ResourceStringWrapper(id = R.string.empty_movies_list))
         }
     }
 

@@ -5,8 +5,8 @@ import com.example.dbm.popularmovieskt.util.StringWrapper
 
 sealed class DetailsState(
     val value: MovieDetailsView? = null,
-    val errorMessage: StringWrapper = StringWrapper.SimpleString(""),
-    val loadingMessage: StringWrapper = StringWrapper.SimpleString("")
+    val errorMessage: StringWrapper = StringWrapper.SimpleStringWrapper(""),
+    val loadingMessage: StringWrapper = StringWrapper.SimpleStringWrapper("")
 ) {
     class Success(value: MovieDetailsView?): DetailsState(value)
     class Error(errorMessage: StringWrapper): DetailsState(errorMessage = errorMessage)

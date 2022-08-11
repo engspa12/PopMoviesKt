@@ -5,8 +5,8 @@ import com.example.dbm.popularmovieskt.util.StringWrapper
 
 sealed class MainState(
     val value: List<MovieGridView>? = null,
-    val errorMessage: StringWrapper = StringWrapper.SimpleString(""),
-    val loadingMessage: StringWrapper = StringWrapper.SimpleString("")
+    val errorMessage: StringWrapper = StringWrapper.SimpleStringWrapper(""),
+    val loadingMessage: StringWrapper = StringWrapper.SimpleStringWrapper("")
 ) {
     class Success(value: List<MovieGridView>): MainState(value)
     class Error(errorMessage: StringWrapper): MainState(errorMessage = errorMessage)
