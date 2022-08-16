@@ -2,17 +2,17 @@
 
 #### PopMoviesKt is an Android app that showcases movies using two sort criteria: Most Popular Movies and Highest Rated Movies.
 
-#### The app allows you to save movies as favorites, watch movie trailers, read movie synopsis and reviews. Additional information displayed includes the movie rating and the movie release date.
+#### The app allows users to save movies as favorites, as well as watch trailers, check synopses, and read reviews. Some additional information displayed includes movies rating and release dates.
 
 </br>
 
-<img src="https://images2.imgbox.com/59/45/sxQ9ITeE_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/6e/d1/cIQO4rji_o.png" width="375" height="725">
+<img src="https://images2.imgbox.com/85/a6/P7y0oQok_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/6e/d1/cIQO4rji_o.png" width="375" height="725">
 <img width="770" vspace="20"/>
-<img src="https://images2.imgbox.com/4c/2e/FBV6HuQi_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/83/14/PdFtH4NA_o.png" width="375" height="726">
+<img src="https://images2.imgbox.com/a9/85/5KKN2v5g_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/4c/2e/FBV6HuQi_o.png" width="375" height="726">
 <img width="770" vspace="20"/>
 <img src="https://images2.imgbox.com/f3/c0/sPv5ARwR_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/99/d2/TBM2V7yF_o.png" width="375" height="726">
 <img width="770" vspace="20"/>
-<img src="https://images2.imgbox.com/67/10/xKOWEHvT_o.png" width="375" height="725"><img height="725" hspace="20"/>
+<img src="https://images2.imgbox.com/67/10/xKOWEHvT_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/83/14/PdFtH4NA_o.png" width="375" height="726">
 <img width="770" vspace="20"/>
 
 ## Getting Started
@@ -21,7 +21,7 @@
 
 ## Prerequisites
 
-#### PopMoviesKt was developed using Android Studio IDE so you must install it in your computer before proceeding:
+#### PopMoviesKt was developed using Android Studio IDE, so you must install it on your computer before proceeding:
 
 ###### https://developer.android.com/studio/
 
