@@ -26,7 +26,7 @@ class MoviesService @Inject constructor(
     private val removeFavoriteMovieUseCase: IRemoveFavoriteMovieUseCase,
     private val getTrailersUseCase: IGetTrailersUseCase,
     private val getReviewsUseCase: IGetReviewsUseCase,
-    private val validator: IConnectionChecker
+    private val connectionChecker: IConnectionChecker
 ): IMoviesService {
 
     private var innerListMovies: List<MovieDomain> = emptyList()
@@ -35,7 +35,7 @@ class MoviesService @Inject constructor(
 
         return if(sortValue != Constants.SORT_BY_FAVORITE_MOVIES){
 
-            if(validator.isOnline()){
+            if(connectionChecker.isOnline()){
                 when(val result = getMoviesUseCase(sortValue)) {
                     is ResultWrapper.Success -> {
                         innerListMovies = result.value
@@ -59,7 +59,7 @@ class MoviesService @Inject constructor(
     override suspend fun getMovieDetails(movieId: Int): MovieDetailsView {
         val movie = findMovieByIdInInnerList(movieId)
 
-        return if(validator.isOnline()){
+        return if(connectionChecker.isOnline()){
             val trailers = getTrailersUseCase(movieId).map {
                 it.toView()
             }

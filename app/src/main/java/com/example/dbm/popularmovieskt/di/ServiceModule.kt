@@ -28,7 +28,7 @@ object ServiceModule {
         removeFavoriteMovieUseCase: IRemoveFavoriteMovieUseCase,
         getTrailersUseCase: IGetTrailersUseCase,
         getReviewsUseCase: IGetReviewsUseCase,
-        validator: IConnectionChecker
+        connectionChecker: IConnectionChecker
     ): IMoviesService {
         return MoviesService(
             getMoviesUseCase,
@@ -37,7 +37,7 @@ object ServiceModule {
             removeFavoriteMovieUseCase,
             getTrailersUseCase,
             getReviewsUseCase,
-            validator
+            connectionChecker
         )
     }
 }
