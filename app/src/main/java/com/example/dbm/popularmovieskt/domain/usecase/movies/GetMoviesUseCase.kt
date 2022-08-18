@@ -6,6 +6,7 @@ import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.util.ResultWrapper
 import com.example.dbm.popularmovieskt.util.StringWrapper
+import java.io.IOException
 import javax.inject.Inject
 
 interface IGetMoviesUseCase {
@@ -41,7 +42,11 @@ class GetMoviesUseCase @Inject constructor(
                 }
             }
             is ResultWrapper.Failure -> {
-                return ResultWrapper.Failure(StringWrapper.ResourceStringWrapper(id = R.string.error_retrieving_data))
+                return if(result.exception is IOException){
+                    ResultWrapper.Failure(errorMessage = StringWrapper.ResourceStringWrapper(id = R.string.error_retrieving_data))
+                } else {
+                    ResultWrapper.Failure(errorMessage = StringWrapper.ResourceStringWrapper(id = R.string.error_unknown, args = arrayOf(result.exception?.message ?: "")))
+                }
             }
         }
     }

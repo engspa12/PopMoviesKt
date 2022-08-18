@@ -32,8 +32,8 @@ class MoviesRepository @Inject constructor(
                     networkMapper.mapToDomainModel(it)
                 }
                 ResultWrapper.Success(listDomainMovies)
-            } catch (e: IOException) {
-                ResultWrapper.Failure(StringWrapper.SimpleStringWrapper(e.message ?: ""))
+            } catch (e: Exception) {
+                ResultWrapper.Failure(exception = e)
             }
         }
     }

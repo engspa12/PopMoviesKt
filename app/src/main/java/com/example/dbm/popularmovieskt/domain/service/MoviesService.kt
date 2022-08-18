@@ -17,6 +17,7 @@ import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
 import com.example.dbm.popularmovieskt.util.IConnectionChecker
 import com.example.dbm.popularmovieskt.util.ResultWrapper
 import com.example.dbm.popularmovieskt.util.StringWrapper
+import java.io.IOException
 import javax.inject.Inject
 
 class MoviesService @Inject constructor(
@@ -45,11 +46,11 @@ class MoviesService @Inject constructor(
                         ResultWrapper.Success(listMovies)
                     }
                     is ResultWrapper.Failure -> {
-                        ResultWrapper.Failure(result.errorMessage)
+                        ResultWrapper.Failure(errorMessage = result.errorMessage)
                     }
                 }
             } else {
-                ResultWrapper.Failure(StringWrapper.ResourceStringWrapper(id = R.string.no_internet_connection))
+                ResultWrapper.Failure(errorMessage = StringWrapper.ResourceStringWrapper(id = R.string.no_internet_connection))
             }
         } else {
             getFavoriteMovies()
@@ -115,7 +116,7 @@ class MoviesService @Inject constructor(
                 }
             )
         } else {
-            ResultWrapper.Failure(StringWrapper.ResourceStringWrapper(id = R.string.empty_movies_list))
+            ResultWrapper.Failure(errorMessage = StringWrapper.ResourceStringWrapper(id = R.string.empty_movies_list))
         }
     }
 
