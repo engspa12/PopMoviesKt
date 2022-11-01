@@ -4,8 +4,8 @@ import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.global.Constants
+import com.example.dbm.popularmovieskt.util.MessageWrapper
 import com.example.dbm.popularmovieskt.util.ResultWrapper
-import com.example.dbm.popularmovieskt.util.StringWrapper
 import java.io.IOException
 import javax.inject.Inject
 
@@ -43,9 +43,9 @@ class GetMoviesUseCase @Inject constructor(
             }
             is ResultWrapper.Failure -> {
                 return if(result.exception is IOException){
-                    ResultWrapper.Failure(errorMessage = StringWrapper.ResourceStringWrapper(id = R.string.error_retrieving_data))
+                    ResultWrapper.Failure(errorMessage = MessageWrapper(messageResource = R.string.error_retrieving_data))
                 } else {
-                    ResultWrapper.Failure(errorMessage = StringWrapper.ResourceStringWrapper(id = R.string.error_unknown, args = arrayOf(result.exception?.message ?: "")))
+                    ResultWrapper.Failure(errorMessage = MessageWrapper(messageResource = R.string.error_unknown, argForResource  = result.exception?.message ?: ""))
                 }
             }
         }

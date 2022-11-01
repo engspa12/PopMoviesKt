@@ -30,9 +30,9 @@ fun Navigation(
 ) {
 
     NavHost(navController = navController, startDestination = "movies", modifier = modifier){
-        navigation(startDestination = Screen.MainScreen.route + "/sortValue", route = "movies") {
+        navigation(startDestination = Screen.MainScreen.route + "/{sortValue}", route = "movies") {
             composable(
-                route = Screen.MainScreen.route + "/sortValue",
+                route = Screen.MainScreen.route + "/{sortValue}",
                 arguments = listOf(
                     navArgument("sortValue") {
                         type = NavType.StringType
@@ -59,7 +59,7 @@ fun Navigation(
                 MoviesGridScreen(
                     gridLazyState = gridLazyState,
                     navigateToDetailsScreen = { movieId ->
-                        navController.navigate(Screen.DetailScreen.withArgs(movieId))
+                        navController.navigate(Screen.DetailScreen.withIntArgs(movieId))
                     },
                     viewModel = mainViewModel,
                     sortValue = sortValue

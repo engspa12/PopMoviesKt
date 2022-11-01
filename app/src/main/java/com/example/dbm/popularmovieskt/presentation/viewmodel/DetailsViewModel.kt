@@ -6,11 +6,12 @@ import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
-import com.example.dbm.popularmovieskt.util.StringWrapper
+import com.example.dbm.popularmovieskt.util.MessageWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,13 +21,15 @@ class DetailsViewModel @Inject constructor(
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<DetailsState>(DetailsState.Loading(StringWrapper.ResourceStringWrapper(id = R.string.loading_movie_details)))
+    private val _uiState = MutableStateFlow(DetailsState(isLoading = true, messageWrapper = MessageWrapper(messageResource = R.string.loading_movie_details)))
     val uiState: StateFlow<DetailsState> = _uiState
 
     fun getMovieDetails(movieId: Int){
         viewModelScope.launch(mainDispatcher) {
             val movieDetails = moviesService.getMovieDetails(movieId)
-            _uiState.value = DetailsState.Success(value = movieDetails)
+            _uiState.update {
+                it.copy(movieDetailsView = movieDetails, isLoading = false, messageWrapper = null)
+            }
         }
     }
 

@@ -10,6 +10,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.dbm.popularmovieskt.presentation.state.MainState
 import com.example.dbm.popularmovieskt.presentation.view.components.main.MoviesGrid
@@ -31,33 +32,30 @@ fun MoviesGridScreen(
         viewModel.getMovies(sortValue)
     }
 
-    when(uiState) {
-        is MainState.Success -> {
-            MoviesGrid(
-                gridLazyState = gridLazyState,
-                list = uiState.value,
-                onItemClicked = { movieId ->
-                    navigateToDetailsScreen(movieId)
-                }
-            )
-        }
-        is MainState.Error -> {
+    if(uiState.isLoading) {
+        ProgressBar(
+            message = LocalContext.current.getString(uiState.messageWrapper?.messageResource ?: 0),
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentHeight(Alignment.CenterVertically)
+        )
+    } else {
+        if(uiState.errorPresent){
             ErrorIndicator(
-                errorMessage = uiState.errorMessage.asString(),
+                errorMessage = LocalContext.current.getString(uiState.messageWrapper?.messageResource ?: 0),
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)
                     .padding(horizontal = 20.dp)
             )
-        }
-        is MainState.Loading -> {
-            ProgressBar(
-                message = uiState.loadingMessage.asString(),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentHeight(Alignment.CenterVertically)
+        } else {
+            MoviesGrid(
+                gridLazyState = gridLazyState,
+                list = uiState.listMoviesGrid,
+                onItemClicked = { movieId ->
+                    navigateToDetailsScreen(movieId)
+                }
             )
         }
     }
-
 }

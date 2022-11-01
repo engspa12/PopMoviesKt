@@ -1,14 +1,11 @@
 package com.example.dbm.popularmovieskt.presentation.state
 
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
-import com.example.dbm.popularmovieskt.util.StringWrapper
+import com.example.dbm.popularmovieskt.util.MessageWrapper
 
-sealed class MainState(
-    val value: List<MovieGridView>? = null,
-    val errorMessage: StringWrapper = StringWrapper.SimpleStringWrapper(""),
-    val loadingMessage: StringWrapper = StringWrapper.SimpleStringWrapper("")
-) {
-    class Success(value: List<MovieGridView>): MainState(value)
-    class Error(errorMessage: StringWrapper): MainState(errorMessage = errorMessage)
-    class Loading(loadingMessage: StringWrapper) : MainState(loadingMessage = loadingMessage)
-}
+data class MainState(
+    val listMoviesGrid: List<MovieGridView>? = null,
+    val errorPresent: Boolean = false,
+    val isLoading: Boolean = false,
+    val messageWrapper: MessageWrapper? = null
+)

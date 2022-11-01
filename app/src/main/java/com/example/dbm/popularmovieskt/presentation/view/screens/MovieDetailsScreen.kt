@@ -13,6 +13,7 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.dbm.popularmovieskt.R
@@ -38,9 +39,26 @@ fun MovieDetailsScreen(
         viewModel.getMovieDetails(movieId)
     }
 
-    when(uiState) {
-        is DetailsState.Success -> {
-            uiState.value?.let { movieDetails ->
+    if(uiState.isLoading){
+        onMovieTitleChange(stringResource(id = R.string.loading_movie_details))
+        ProgressBar(
+            message = LocalContext.current.getString(uiState.messageWrapper?.messageResource ?: 0),
+            modifier = Modifier
+                .fillMaxSize()
+                .wrapContentHeight(Alignment.CenterVertically)
+        )
+    } else {
+        if(uiState.errorPresent){
+            onMovieTitleChange(stringResource(id = R.string.error_retrieving_data))
+            ErrorIndicator(
+                errorMessage = LocalContext.current.getString(uiState.messageWrapper?.messageResource ?: 0),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .wrapContentHeight(Alignment.CenterVertically)
+                    .padding(horizontal = 20.dp)
+            )
+        } else {
+            uiState.movieDetailsView?.let { movieDetails ->
                 onMovieTitleChange(movieDetails.movieName)
                 MovieDetails(
                     movieDetails,
@@ -56,26 +74,7 @@ fun MovieDetailsScreen(
                     }
                 )
             }
-        }
-        is DetailsState.Error -> {
-            onMovieTitleChange(stringResource(id = R.string.error_retrieving_data))
-            ErrorIndicator(
-                errorMessage = uiState.errorMessage.asString(),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentHeight(Alignment.CenterVertically)
-                    .padding(horizontal = 20.dp)
-            )
-        }
-        is DetailsState.Loading -> {
-            onMovieTitleChange(stringResource(id = R.string.loading_movie_details))
-            ProgressBar(
-                message = uiState.loadingMessage.asString(),
-                modifier = Modifier
-                    .fillMaxSize()
-                    .wrapContentHeight(Alignment.CenterVertically)
-            )
+
         }
     }
-
 }

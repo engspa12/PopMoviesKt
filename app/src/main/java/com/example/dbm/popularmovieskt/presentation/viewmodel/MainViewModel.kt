@@ -6,12 +6,13 @@ import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
 import com.example.dbm.popularmovieskt.presentation.state.MainState
+import com.example.dbm.popularmovieskt.util.MessageWrapper
 import com.example.dbm.popularmovieskt.util.ResultWrapper
-import com.example.dbm.popularmovieskt.util.StringWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +22,7 @@ class MainViewModel @Inject constructor(
     @DispatchersModule.MainDispatcher private val mainDispatcher: CoroutineDispatcher
 ): ViewModel() {
 
-    private val _uiState = MutableStateFlow<MainState>(MainState.Loading(StringWrapper.ResourceStringWrapper(id = R.string.loading_movies)))
+    private val _uiState = MutableStateFlow(MainState(isLoading = true, messageWrapper = MessageWrapper(messageResource = R.string.loading_movies)))
     val uiState: StateFlow<MainState> = _uiState
 
     fun getMovies(sortValue: String){
@@ -31,17 +32,23 @@ class MainViewModel @Inject constructor(
         viewModelScope.launch(mainDispatcher) {
             when(val result = moviesService.getListMovies(sortValue)) {
                 is ResultWrapper.Success -> {
-                    _uiState.value = MainState.Success(value = result.value)
+                    _uiState.update {
+                        it.copy(listMoviesGrid = result.value, errorPresent = false, isLoading = false, messageWrapper = null)
+                    }
                 }
                 is ResultWrapper.Failure -> {
-                    _uiState.value = MainState.Error(errorMessage = result.errorMessage)
+                    _uiState.update {
+                        it.copy(errorPresent = true, isLoading = false, messageWrapper = result.errorMessage)
+                    }
                 }
             }
         }
     }
 
     private fun showProgressBar() {
-        _uiState.value = MainState.Loading(StringWrapper.ResourceStringWrapper(id = R.string.loading_movies))
+        _uiState.update {
+            it.copy(isLoading = true, messageWrapper = MessageWrapper(messageResource = R.string.loading_movies))
+        }
     }
 
 }

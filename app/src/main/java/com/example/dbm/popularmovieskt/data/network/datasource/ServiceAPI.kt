@@ -1,6 +1,5 @@
 package com.example.dbm.popularmovieskt.data.network.datasource
 
-import com.example.dbm.popularmovieskt.BuildConfig
 import com.example.dbm.popularmovieskt.data.network.model.MoviesResponse
 import com.example.dbm.popularmovieskt.data.network.model.ReviewsResponse
 import com.example.dbm.popularmovieskt.data.network.model.TrailersResponse
