@@ -4,8 +4,6 @@
 
 #### The app allows users to save movies as favorites, as well as watch trailers, check synopses, and read reviews. Some additional information displayed includes movies rating and release dates.
 
-</br>
-
 <img src="https://images2.imgbox.com/85/a6/P7y0oQok_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/6e/d1/cIQO4rji_o.png" width="375" height="725">
 <img width="770" vspace="20"/>
 <img src="https://images2.imgbox.com/a9/85/5KKN2v5g_o.png" width="375" height="725"><img height="725" hspace="20"/><img src="https://images2.imgbox.com/4c/2e/FBV6HuQi_o.png" width="375" height="726">
