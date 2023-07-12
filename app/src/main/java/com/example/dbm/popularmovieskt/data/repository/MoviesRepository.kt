@@ -22,7 +22,7 @@ class MoviesRepository @Inject constructor(
     @DispatchersModule.IODispatcher private val coroutineDispatcher: CoroutineDispatcher
 ): IMoviesRepository {
 
-    override suspend fun getListMovies(sortValue: String, page: Int): ResultWrapper<List<MovieDomain>> {
+    override suspend fun getListMovies(sortValue: String, page: Int): ResultWrapper<List<MovieDomain>, Nothing> {
         return withContext(coroutineDispatcher){
             try {
                 val networkResponse = networkDataSource.getMovies(sortValue = sortValue, page = page)
