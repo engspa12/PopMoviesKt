@@ -1,6 +1,5 @@
 package com.example.dbm.popularmovieskt.domain.service
 
-import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IAddFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetFavoriteMoviesUseCase
@@ -14,8 +13,8 @@ import com.example.dbm.popularmovieskt.domain.util.toView
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MovieGridView
-import com.example.dbm.popularmovieskt.util.IConnectionChecker
-import com.example.dbm.popularmovieskt.util.MessageWrapper
+import com.example.dbm.popularmovieskt.domain.util.IConnectionChecker
+import com.example.dbm.popularmovieskt.domain.util.MoviesDomainError
 import com.example.dbm.popularmovieskt.util.ResultWrapper
 import javax.inject.Inject
 
@@ -31,7 +30,7 @@ class MoviesService @Inject constructor(
 
     private var innerListMovies: List<MovieDomain> = emptyList()
 
-    override suspend fun getListMovies(sortValue: String): ResultWrapper<List<MovieGridView>> {
+    override suspend fun getListMovies(sortValue: String): ResultWrapper<List<MovieGridView>, MoviesDomainError> {
 
         return if(sortValue != Constants.SORT_BY_FAVORITE_MOVIES){
 
@@ -45,11 +44,11 @@ class MoviesService @Inject constructor(
                         ResultWrapper.Success(listMovies)
                     }
                     is ResultWrapper.Failure -> {
-                        ResultWrapper.Failure(errorMessage = result.errorMessage)
+                        ResultWrapper.Failure(error = result.error)
                     }
                 }
             } else {
-                ResultWrapper.Failure(errorMessage = MessageWrapper(messageResource = R.string.no_internet_connection))
+                ResultWrapper.Failure(error = MoviesDomainError.NO_INTERNET_CONNECTION)
             }
         } else {
             getFavoriteMovies()
@@ -103,7 +102,7 @@ class MoviesService @Inject constructor(
         return (isFavorite.size == 1)
     }
 
-    private suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>> {
+    private suspend fun getFavoriteMovies(): ResultWrapper<List<MovieGridView>, MoviesDomainError> {
         val favoriteMovies = getFavoriteMoviesUseCase()
 
         innerListMovies = favoriteMovies
@@ -115,7 +114,7 @@ class MoviesService @Inject constructor(
                 }
             )
         } else {
-            ResultWrapper.Failure(errorMessage = MessageWrapper(messageResource = R.string.empty_movies_list))
+            ResultWrapper.Failure(error = MoviesDomainError.NO_FAVORITE_MOVIES_FOUND)
         }
     }
 

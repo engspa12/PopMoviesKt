@@ -3,6 +3,7 @@ package com.example.dbm.popularmovieskt.domain.usecase.movies
 import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
+import com.example.dbm.popularmovieskt.domain.util.MoviesDomainError
 import com.example.dbm.popularmovieskt.global.Constants
 import com.example.dbm.popularmovieskt.util.MessageWrapper
 import com.example.dbm.popularmovieskt.util.ResultWrapper
@@ -10,14 +11,14 @@ import java.io.IOException
 import javax.inject.Inject
 
 interface IGetMoviesUseCase {
-    suspend operator fun invoke(sortValue: String): ResultWrapper<List<MovieDomain>>
+    suspend operator fun invoke(sortValue: String): ResultWrapper<List<MovieDomain>, MoviesDomainError>
 }
 
 class GetMoviesUseCase @Inject constructor(
     private val moviesRepository: IMoviesRepository
 ) : IGetMoviesUseCase {
 
-    override suspend fun invoke(sortValue: String): ResultWrapper<List<MovieDomain>> {
+    override suspend fun invoke(sortValue: String): ResultWrapper<List<MovieDomain>, MoviesDomainError> {
         val returnedList = mutableListOf<MovieDomain>()
         return getMovies(returnedList, sortValue, Constants.PAGE_INITIAL_VALUE)
     }
@@ -26,7 +27,7 @@ class GetMoviesUseCase @Inject constructor(
         returnedList: MutableList<MovieDomain>,
         sortValue: String,
         page: Int
-    ): ResultWrapper<List<MovieDomain>> {
+    ): ResultWrapper<List<MovieDomain>, MoviesDomainError> {
 
         when(val result = moviesRepository.getListMovies(sortValue, page)){
             is ResultWrapper.Success -> {
@@ -43,9 +44,9 @@ class GetMoviesUseCase @Inject constructor(
             }
             is ResultWrapper.Failure -> {
                 return if(result.exception is IOException){
-                    ResultWrapper.Failure(errorMessage = MessageWrapper(messageResource = R.string.error_retrieving_data))
+                    ResultWrapper.Failure(error = MoviesDomainError.GENERIC)
                 } else {
-                    ResultWrapper.Failure(errorMessage = MessageWrapper(messageResource = R.string.error_unknown, argForResource  = result.exception?.message ?: ""))
+                    ResultWrapper.Failure(error = MoviesDomainError.UNKNOWN)
                 }
             }
         }
