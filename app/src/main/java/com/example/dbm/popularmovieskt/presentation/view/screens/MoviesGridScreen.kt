@@ -6,13 +6,14 @@ import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.grid.LazyGridState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.dbm.popularmovieskt.presentation.state.MainState
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.example.dbm.popularmovieskt.R
+import com.example.dbm.popularmovieskt.presentation.mapToStringResource
 import com.example.dbm.popularmovieskt.presentation.view.components.main.MoviesGrid
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ErrorIndicator
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ProgressBar
@@ -26,7 +27,7 @@ fun MoviesGridScreen(
     sortValue: String
 ){
 
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LaunchedEffect(key1 = sortValue) {
         viewModel.getMovies(sortValue)
@@ -34,7 +35,7 @@ fun MoviesGridScreen(
 
     if(uiState.isLoading) {
         ProgressBar(
-            message = LocalContext.current.getString(uiState.messageWrapper?.messageResource ?: 0),
+            message = stringResource(id = R.string.loading_movies),
             modifier = Modifier
                 .fillMaxSize()
                 .wrapContentHeight(Alignment.CenterVertically)
@@ -42,7 +43,7 @@ fun MoviesGridScreen(
     } else {
         if(uiState.errorPresent){
             ErrorIndicator(
-                errorMessage = LocalContext.current.getString(uiState.messageWrapper?.messageResource ?: 0),
+                errorMessage = stringResource(id = uiState.errorType.mapToStringResource()),
                 modifier = Modifier
                     .fillMaxSize()
                     .wrapContentHeight(Alignment.CenterVertically)
