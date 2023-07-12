@@ -1,4 +1,4 @@
-package com.example.dbm.popularmovieskt.presentation
+package com.example.dbm.popularmovieskt.presentation.util
 
 import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.presentation.model.MoviesViewError

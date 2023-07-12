@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.global.Constants
-import com.example.dbm.popularmovieskt.presentation.mapToStringResource
+import com.example.dbm.popularmovieskt.presentation.util.mapToStringResource
 import com.example.dbm.popularmovieskt.presentation.view.components.detail.MovieDetails
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ErrorIndicator
 import com.example.dbm.popularmovieskt.presentation.view.components.shared.ProgressBar

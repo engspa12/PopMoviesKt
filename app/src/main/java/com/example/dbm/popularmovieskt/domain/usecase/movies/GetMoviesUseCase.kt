@@ -1,11 +1,9 @@
 package com.example.dbm.popularmovieskt.domain.usecase.movies
 
-import com.example.dbm.popularmovieskt.R
 import com.example.dbm.popularmovieskt.domain.model.MovieDomain
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.domain.util.MoviesDomainError
 import com.example.dbm.popularmovieskt.global.Constants
-import com.example.dbm.popularmovieskt.util.MessageWrapper
 import com.example.dbm.popularmovieskt.util.ResultWrapper
 import java.io.IOException
 import javax.inject.Inject

@@ -2,7 +2,6 @@ package com.example.dbm.popularmovieskt.presentation.state
 
 import com.example.dbm.popularmovieskt.presentation.model.MovieDetailsView
 import com.example.dbm.popularmovieskt.presentation.model.MoviesViewError
-import com.example.dbm.popularmovieskt.util.MessageWrapper
 
 data class DetailsState(
     val movieDetailsView: MovieDetailsView? = null,
