@@ -1,8 +1,8 @@
 package com.example.dbm.popularmovieskt.di
 
 import android.content.Context
-import com.example.dbm.popularmovieskt.util.IConnectionChecker
-import com.example.dbm.popularmovieskt.util.ConnectionChecker
+import com.example.dbm.popularmovieskt.domain.util.IConnectionChecker
+import com.example.dbm.popularmovieskt.domain.util.ConnectionChecker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

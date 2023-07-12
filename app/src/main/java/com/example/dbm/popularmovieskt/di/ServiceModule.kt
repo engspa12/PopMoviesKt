@@ -8,7 +8,7 @@ import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.movies.IRemoveFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.reviews.IGetReviewsUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.trailers.IGetTrailersUseCase
-import com.example.dbm.popularmovieskt.util.IConnectionChecker
+import com.example.dbm.popularmovieskt.domain.util.IConnectionChecker
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
