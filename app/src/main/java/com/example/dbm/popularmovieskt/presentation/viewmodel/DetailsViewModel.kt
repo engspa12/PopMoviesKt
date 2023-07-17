@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
-import com.example.dbm.popularmovieskt.presentation.model.MoviesViewError
+import com.example.dbm.popularmovieskt.presentation.util.MoviesViewError
 import com.example.dbm.popularmovieskt.presentation.state.DetailsState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher

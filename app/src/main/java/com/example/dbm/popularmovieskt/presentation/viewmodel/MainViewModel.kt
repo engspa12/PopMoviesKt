@@ -5,7 +5,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.dbm.popularmovieskt.di.DispatchersModule
 import com.example.dbm.popularmovieskt.domain.service.IMoviesService
 import com.example.dbm.popularmovieskt.domain.util.MoviesDomainError
-import com.example.dbm.popularmovieskt.presentation.model.MoviesViewError
+import com.example.dbm.popularmovieskt.presentation.util.MoviesViewError
 import com.example.dbm.popularmovieskt.presentation.state.MainState
 import com.example.dbm.popularmovieskt.util.ResultWrapper
 import dagger.hilt.android.lifecycle.HiltViewModel
