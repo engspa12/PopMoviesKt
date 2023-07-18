@@ -3,7 +3,14 @@ package com.example.dbm.popularmovieskt.di
 import com.example.dbm.popularmovieskt.domain.repository.IMoviesRepository
 import com.example.dbm.popularmovieskt.domain.repository.IReviewsRepository
 import com.example.dbm.popularmovieskt.domain.repository.ITrailersRepository
-import com.example.dbm.popularmovieskt.domain.usecase.movies.*
+import com.example.dbm.popularmovieskt.domain.usecase.movies.AddFavoriteMovieUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.GetFavoriteMoviesUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.GetMoviesUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.IAddFavoriteMovieUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetFavoriteMoviesUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.IGetMoviesUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.IRemoveFavoriteMovieUseCase
+import com.example.dbm.popularmovieskt.domain.usecase.movies.RemoveFavoriteMovieUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.reviews.GetReviewsUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.reviews.IGetReviewsUseCase
 import com.example.dbm.popularmovieskt.domain.usecase.trailers.GetTrailersUseCase
@@ -41,7 +48,7 @@ object UseCasesModule {
     @Provides
     fun provideGetFavoriteMoviesUseCase(
         moviesRepository: IMoviesRepository
-    ): IGetFavoriteMoviesUseCase{
+    ): IGetFavoriteMoviesUseCase {
         return GetFavoriteMoviesUseCase(moviesRepository)
     }
 
